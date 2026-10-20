@@ -1,7 +1,7 @@
 ---
 id: P01
 name: Foundation and executable gates
-status: not-started
+status: complete
 dependencies: []
 activation: Implementation explicitly authorized
 priority: P1
@@ -134,7 +134,7 @@ Read [acceptance matrix](../../docs/acceptance.md) for negative cases. Test with
 
 Resolved 2026-10-20: this is a planning package for the owner's team. Technology and behavior defaults live in project docs; live OVH facts are not assumed.
 
-Blast radius: 25 implementation file paths, plus serial plan/index/changelog bookkeeping. No files created by this plan yet.
+Blast radius: 25 implementation file paths, plus serial plan/index/changelog bookkeeping. Implementation completed; see execution evidence below.
 
 Learnings log (append-only): 2026-10-20 — greenfield gates are future outputs; no runtime verification can be claimed during authoring.
 
@@ -143,3 +143,9 @@ Cold-start continuity:
 2. Verify dependency none and current contract versions; get a clean task worktree.
 3. Run phase gates in order, stop on failure, record evidence without sensitive data.
 4. Audit requirements and diff; finish lifecycle, archive only completed scope and activate successor.
+
+2026-10-20 execution: Node 24.18.0; P01-A npm ci/TypeScript and native SQLite passed.
+
+### Execution evidence
+
+npm ci, TypeScript 6 typecheck, ESLint, native SQLite + Preact build smoke and 3 foundation tests passed; npm audit: zero vulnerabilities. No product behavior claimed by foundation tests.

@@ -2,7 +2,7 @@
 
 Read `README.md`, `plans/WORKFLOW.md`, `plans/PLAN-FORMAT.md`, `plans/EXECUTION.md` and the selected plan before editing. Product and engineering contracts in `docs/` are authoritative; old local diagrams are exploratory snapshots.
 
-- Current authorization: planning and public repository setup only. Do not implement the app until asked.
+- Current authorization: implement P01–P05 and publish the project. P06 and live OVH release remain outside scope.
 - Initial audience: the owner's Scrum team, light usage. One backend process on the existing OVH instance.
 - KERNEL plans; backend contracts before UI integration; no speculative distributed infrastructure.
 - Non-trivial changes use one linked worktree per active agent. Follow workspace lifecycle begin/finish; no stash switching.

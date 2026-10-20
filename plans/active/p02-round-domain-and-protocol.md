@@ -1,7 +1,7 @@
 ---
 id: P02
 name: Round rules and private/public protocol
-status: deferred
+status: in-progress
 dependencies: [P01]
 activation: Predecessor P01 complete and archived; implementation authorized
 priority: P1

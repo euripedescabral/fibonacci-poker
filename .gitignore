@@ -12,3 +12,5 @@ diagram-path.txt
 .worktrees/
 .DS_Store
 output/
+data/
+.fixture-*/

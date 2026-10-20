@@ -60,4 +60,4 @@ if len(seen)!=6: errors.append('Expected six execution plans')
 if errors:
     print('\n'.join('FAIL: '+e for e in errors)); sys.exit(1)
 print(f'PASS: {len(seen)} KERNEL plans, {len(files)} Markdown files; links, dependencies, phase inventories and requirement coverage.')
-print('Runtime tests NOT RUN: application/runtime scripts do not exist yet.')
+print('Structure only; runtime evidence is recorded separately by each plan.')

@@ -2,7 +2,7 @@
   "plans": [
     {
       "id": "P01",
-      "path": "plans/active/p01-foundation-and-contracts.md",
+      "path": "plans/done/p01-foundation-and-contracts.md",
       "depends": [],
       "phases": [
         {
@@ -52,7 +52,7 @@
     },
     {
       "id": "P02",
-      "path": "plans/deferred/p02-round-domain-and-protocol.md",
+      "path": "plans/active/p02-round-domain-and-protocol.md",
       "depends": [
         "P01"
       ],

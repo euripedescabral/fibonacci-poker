@@ -9,3 +9,5 @@
 
 - Applied plan, security/privacy, systemic, semantic and test-strategy reviews; findings and corrections recorded in docs/reviews/plan-review.md.
 - Documentation gate passed: six KERNEL plans, 22 Markdown files, local links/dependencies/phase inventories and R01–R18/T01–T24 coverage references checked. Runtime tests not run (application intentionally not implemented).
+
+- P01 completed: npm ci, TypeScript 6 typecheck, ESLint, native SQLite + Preact build smoke and 3 foundation tests passed; npm audit: zero vulnerabilities. No product behavior claimed by foundation tests.

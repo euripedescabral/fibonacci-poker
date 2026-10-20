@@ -1,11 +1,11 @@
 # Implementation plan index
 
-**Planning complete; implementation not started or authorized by this package.** All runtime commands and outputs below belong to future execution. Initial usage: one Scrum team, modest load.
+**P01–P05 implementation authorized and in progress. P06 remains excluded.** All runtime commands and outputs below belong to future execution. Initial usage: one Scrum team, modest load.
 
 | Order | Plan | Status | Activation |
 |---|---|---|---|
-| P01 | [Foundation and executable gates](active/p01-foundation-and-contracts.md) | Ready for authorization | Explicit implementation request |
-| P02 | [Round rules and private/public protocol](deferred/p02-round-domain-and-protocol.md) | Deferred by dependency | P01 |
+| P01 | [Foundation and executable gates](done/p01-foundation-and-contracts.md) | Complete | Explicit implementation request |
+| P02 | [Round rules and private/public protocol](active/p02-round-domain-and-protocol.md) | In progress | P01 |
 | P03 | [Durable tables, identity and atomic mutations](deferred/p03-durable-storage-and-identity.md) | Deferred by dependency | P02 |
 | P04 | [Shared rooms, presence and recovery](deferred/p04-realtime-rooms-and-reconnection.md) | Deferred by dependency | P03 |
 | P05 | [Poker table UI, localization and preferences](deferred/p05-table-ui-and-accessibility.md) | Deferred by dependency | P04 |
@@ -22,7 +22,7 @@ This index is the master coordinator; six KERNEL execution plans own the impleme
 - [Plan review and gap analysis](../docs/reviews/plan-review.md)
 - [Workflow](WORKFLOW.md), [format](PLAN-FORMAT.md), [execution](EXECUTION.md)
 
-Only P01 is active. Dependent plans move from deferred to active after predecessor completion; update links and manifest together. `done/` starts empty. No archived scope is being claimed.
+See lifecycle status above for the active plan. Dependent plans move from deferred to active after predecessor completion; update links and manifest together. Completed plans are archived only after their gates pass.
 
 ## Release-only unresolved facts
 
