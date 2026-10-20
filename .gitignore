@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+.env
+.env.*
+!.env.example
+*.sqlite*
+*.db
+backups/
+.archify/
+diagram-path.txt
+.worktrees/
+.DS_Store
+output/
