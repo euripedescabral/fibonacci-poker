@@ -1,7 +1,7 @@
 ---
 id: P05
 name: Poker table UI, localization and preferences
-status: deferred
+status: in-progress
 dependencies: [P04]
 activation: Predecessor P04 complete and archived; implementation authorized
 priority: P1

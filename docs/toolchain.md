@@ -28,3 +28,5 @@ Node 24.18.0. npm lockfile pins all transitive versions.
 P01 evidence: npm ci, typecheck, lint and 3 foundation tests passed. Tests open native SQLite/WAL on disk, load SDK exports and build a real Preact TSX fixture. npm audit reported zero vulnerabilities. TypeScript 7 was incompatible with current typescript-eslint; selected TypeScript 6. No validation disabled.
 
 Runtime scopes are added in later plans. Missing future focused suites intentionally fail. P06 operations/load suites are not implemented by P01–P05.
+
+P04 runtime verification: `@colyseus/ws-transport` imports its Express peer eagerly. Express is pinned as a transport dependency; application routing still uses Node HTTP. Public Colyseus matchmaking handlers are removed after boot; only the capability-scoped application routes admit sessions. Current schema factory API is used to preserve patch tracking with native class fields.

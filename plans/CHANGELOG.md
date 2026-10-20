@@ -15,3 +15,5 @@
 - P02 completed: Typecheck, lint, 21 domain tests and full verify (24 tests) passed. Open-state projection secrecy, mode/ties, observer reveal, stale clear and completion edge cases covered.
 
 - P03 completed: 33 tests passed; transactional rollback, SQLite write failure and lock contention, cookie identity, receipt replay and disk recovery verified.
+
+- P04 completed: 44 tests passed including real SDK hidden-state inspection, simultaneous votes and clears, reservations, tab replacement, idle suspension, runtime eviction and isolated process crash after commit before broadcast. HTTP origin/body/session and private-only matchmaking verified.

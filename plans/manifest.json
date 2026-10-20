@@ -126,7 +126,7 @@
     },
     {
       "id": "P04",
-      "path": "plans/active/p04-realtime-rooms-and-reconnection.md",
+      "path": "plans/done/p04-realtime-rooms-and-reconnection.md",
       "depends": [
         "P03"
       ],
@@ -172,7 +172,7 @@
     },
     {
       "id": "P05",
-      "path": "plans/deferred/p05-table-ui-and-accessibility.md",
+      "path": "plans/active/p05-table-ui-and-accessibility.md",
       "depends": [
         "P04"
       ],

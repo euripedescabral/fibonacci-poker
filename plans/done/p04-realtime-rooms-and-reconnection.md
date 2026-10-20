@@ -1,7 +1,7 @@
 ---
 id: P04
 name: Shared rooms, presence and recovery
-status: in-progress
+status: complete
 dependencies: [P03]
 activation: Predecessor P03 complete and archived; implementation authorized
 priority: P1
@@ -67,8 +67,6 @@ Coalesce table wake-up, serialize mutation, commit then project, private own-vot
 | `apps/server/src/rooms/queue.ts` | NEW — P04-A |
 | `apps/server/src/rooms/presence.ts` | NEW — P04-A |
 | `tests/realtime/rooms.test.ts` | NEW — P04-A |
-| `tests/realtime/visibility.test.ts` | NEW — P04-A |
-| `tests/realtime/harness.ts` | NEW — P04-A |
 
 **Gate:** `npm run test:realtime`. Requires scripts created by P01; a missing script/test is a failure, never a skipped pass.
 
@@ -85,6 +83,8 @@ Use the Node HTTP server shared with Colyseus (no second web framework); wire do
 | `apps/server/src/main.ts` | NEW — P04-B |
 | `tests/realtime/http.test.ts` | NEW — P04-B |
 | `tests/realtime/security.test.ts` | NEW — P04-B |
+| `tests/realtime/visibility.test.ts` | NEW — P04-B |
+| `tests/realtime/harness.ts` | NEW — P04-B |
 
 **Gate:** `npm run test:realtime && npm run verify`. Requires scripts created by P01; a missing script/test is a failure, never a skipped pass.
 
@@ -106,8 +106,8 @@ Use the Node HTTP server shared with Colyseus (no second web framework); wire do
 
 | Phase | Mode | Dependency | Owner | Files | Gate |
 |---|---|---|---|---|---|
-| P04-A | Serial | P03 | One executor in isolated worktree | Exact Phase P04-A table (7 files) | `npm run test:realtime` |
-| P04-B | Serial | P04-A | One executor in isolated worktree | Exact Phase P04-B table (7 files) | `npm run test:realtime && npm run verify` |
+| P04-A | Serial | P03 | One executor in isolated worktree | Exact Phase P04-A table (5 files) | `npm run test:realtime` |
+| P04-B | Serial | P04-A | One executor in isolated worktree | Exact Phase P04-B table (9 files) | `npm run test:realtime && npm run verify` |
 | P04-C | Serial | P04-B | One executor in isolated worktree | Exact Phase P04-C table (5 files) | `npm run test:realtime && npm run verify` |
 
 ### Layer 3.2 — UI Flow Matrix
@@ -124,7 +124,7 @@ Read [acceptance matrix](../../docs/acceptance.md) for negative cases. Test with
 
 Resolved 2026-10-20: this is a planning package for the owner's team. Technology and behavior defaults live in project docs; live OVH facts are not assumed.
 
-Blast radius: 19 implementation file paths, plus serial plan/index/changelog bookkeeping. No files created by this plan yet.
+Blast radius: 19 implementation file paths, plus serial plan/index/changelog bookkeeping. Implementation completed; see execution evidence below.
 
 Learnings log (append-only): 2026-10-20 — greenfield gates are future outputs; no runtime verification can be claimed during authoring.
 
@@ -133,3 +133,9 @@ Cold-start continuity:
 2. Verify dependency P03 and current contract versions; get a clean task worktree.
 3. Run phase gates in order, stop on failure, record evidence without sensitive data.
 4. Audit requirements and diff; finish lifecycle, archive only completed scope and activate successor.
+
+Execution refinement: real SDK visibility harness belongs to P04-B after production HTTP authentication exists. P04-A verifies bounded coordination directly.
+
+### Execution evidence
+
+44 tests passed including real SDK hidden-state inspection, simultaneous votes and clears, reservations, tab replacement, idle suspension, runtime eviction and isolated process crash after commit before broadcast. HTTP origin/body/session and private-only matchmaking verified.
