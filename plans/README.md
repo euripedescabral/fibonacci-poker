@@ -5,8 +5,8 @@
 | Order | Plan | Status | Activation |
 |---|---|---|---|
 | P01 | [Foundation and executable gates](done/p01-foundation-and-contracts.md) | Complete | Explicit implementation request |
-| P02 | [Round rules and private/public protocol](active/p02-round-domain-and-protocol.md) | In progress | P01 |
-| P03 | [Durable tables, identity and atomic mutations](deferred/p03-durable-storage-and-identity.md) | Deferred by dependency | P02 |
+| P02 | [Round rules and private/public protocol](done/p02-round-domain-and-protocol.md) | Complete | P01 |
+| P03 | [Durable tables, identity and atomic mutations](active/p03-durable-storage-and-identity.md) | In progress | P02 |
 | P04 | [Shared rooms, presence and recovery](deferred/p04-realtime-rooms-and-reconnection.md) | Deferred by dependency | P03 |
 | P05 | [Poker table UI, localization and preferences](deferred/p05-table-ui-and-accessibility.md) | Deferred by dependency | P04 |
 | P06 | [Team launch, OVH isolation and recovery](deferred/p06-ovh-release-and-recovery.md) | Deferred by dependency | P05 |

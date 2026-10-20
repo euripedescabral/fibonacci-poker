@@ -11,3 +11,5 @@
 - Documentation gate passed: six KERNEL plans, 22 Markdown files, local links/dependencies/phase inventories and R01–R18/T01–T24 coverage references checked. Runtime tests not run (application intentionally not implemented).
 
 - P01 completed: npm ci, TypeScript 6 typecheck, ESLint, native SQLite + Preact build smoke and 3 foundation tests passed; npm audit: zero vulnerabilities. No product behavior claimed by foundation tests.
+
+- P02 completed: Typecheck, lint, 21 domain tests and full verify (24 tests) passed. Open-state projection secrecy, mode/ties, observer reveal, stale clear and completion edge cases covered.

@@ -1,7 +1,7 @@
 ---
 id: P03
 name: Durable tables, identity and atomic mutations
-status: deferred
+status: in-progress
 dependencies: [P02]
 activation: Predecessor P02 complete and archived; implementation authorized
 priority: P1
