@@ -17,3 +17,5 @@
 - P03 completed: 33 tests passed; transactional rollback, SQLite write failure and lock contention, cookie identity, receipt replay and disk recovery verified.
 
 - P04 completed: 44 tests passed including real SDK hidden-state inspection, simultaneous votes and clears, reservations, tab replacement, idle suspension, runtime eviction and isolated process crash after commit before broadcast. HTTP origin/body/session and private-only matchmaking verified.
+
+- P05 completed: 57 tests pass across 21 files; typecheck/lint/source gates pass; 99 locale keys match; production build passes; JS gzip 92253 bytes under 204800. Playwright MCP verified isolated real users, mobile touch and 20 seats at 360/390/768/1440 widths, short landscape, keyboard focus, hidden cards, mode/ties, observer actions, network/reload recovery, tab replacement, blocked storage, OS reduced motion and missing-bundle reload. P06 remains deferred and excluded.

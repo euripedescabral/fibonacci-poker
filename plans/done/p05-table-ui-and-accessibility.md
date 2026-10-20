@@ -1,7 +1,7 @@
 ---
 id: P05
 name: Poker table UI, localization and preferences
-status: in-progress
+status: complete
 dependencies: [P04]
 activation: Predecessor P04 complete and archived; implementation authorized
 priority: P1
@@ -145,7 +145,7 @@ Read [acceptance matrix](../../docs/acceptance.md) for negative cases. Test with
 
 Resolved 2026-10-20: this is a planning package for the owner's team. Technology and behavior defaults live in project docs; live OVH facts are not assumed.
 
-Blast radius: 30 implementation file paths, plus serial plan/index/changelog bookkeeping. No files created by this plan yet.
+Blast radius: 30 implementation file paths, plus serial plan/index/changelog bookkeeping. Implementation completed; see execution evidence below.
 
 Learnings log (append-only): 2026-10-20 — greenfield gates are future outputs; no runtime verification can be claimed during authoring.
 
@@ -154,3 +154,15 @@ Cold-start continuity:
 2. Verify dependency P04 and current contract versions; get a clean task worktree.
 3. Run phase gates in order, stop on failure, record evidence without sensitive data.
 4. Audit requirements and diff; finish lifecycle, archive only completed scope and activate successor.
+
+Execution amendment: coordinator updates root `vitest.config.ts` to apply the same Preact JSX preset as the application; DOM tests cannot resolve the default React runtime. Re-run web tests and full verification. P05 owns UI corrections discovered during browser acceptance, including dictionary singular forms and explicit accessible labels.
+
+Integration refinement: remove the unsolicited onJoin private sync in P04 table-room; the client explicitly requests sync after registering handlers, eliminating a harmless early-message warning without changing visibility. Run realtime and full gates.
+
+Mobile steering: owner explicitly requested mobile coverage. Below 600px use compact two-column seats and a fixed, safe-area-aware 5×2 voting hand; short landscape viewports use normal flow. Validate 360/390/768 widths, 20 people, landscape, focus and absence of horizontal overflow.
+
+Final integration bookkeeping: format source/tests/config authored by P01–P05, reconcile README/agent/runtime contract status and record browser evidence. No feature or external deployment scope is added.
+
+### Execution evidence
+
+57 tests pass across 21 files; typecheck/lint/source gates pass; 99 locale keys match; production build passes; JS gzip 92253 bytes under 204800. Playwright MCP verified isolated real users, mobile touch and 20 seats at 360/390/768/1440 widths, short landscape, keyboard focus, hidden cards, mode/ties, observer actions, network/reload recovery, tab replacement, blocked storage, OS reduced motion and missing-bundle reload. P06 remains deferred and excluded.

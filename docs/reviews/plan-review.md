@@ -66,3 +66,7 @@ Initial load is one Scrum team. Five tables of synthetic clients provide modest 
 ## Verification status
 
 Documentation checker is run before commit and actual result recorded in CHANGELOG. Runtime, product browser tests, deployment and restore: **NOT RUN — application not implemented**. OVH was not contacted or modified.
+
+## Implementation follow-up
+
+The verdict and NOT RUN statements above record the original planning review. P01–P05 were subsequently implemented under explicit owner authorization. See completed plans and [UI/runtime acceptance](ui-acceptance.md) for current evidence. P06 release blockers remain unresolved.

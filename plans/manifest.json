@@ -138,9 +138,7 @@
             "apps/server/src/rooms/table-room.ts",
             "apps/server/src/rooms/queue.ts",
             "apps/server/src/rooms/presence.ts",
-            "tests/realtime/rooms.test.ts",
-            "tests/realtime/visibility.test.ts",
-            "tests/realtime/harness.ts"
+            "tests/realtime/rooms.test.ts"
           ],
           "gate": "npm run test:realtime"
         },
@@ -153,7 +151,9 @@
             "apps/server/src/http/static.ts",
             "apps/server/src/main.ts",
             "tests/realtime/http.test.ts",
-            "tests/realtime/security.test.ts"
+            "tests/realtime/security.test.ts",
+            "tests/realtime/visibility.test.ts",
+            "tests/realtime/harness.ts"
           ],
           "gate": "npm run test:realtime && npm run verify"
         },
@@ -172,7 +172,7 @@
     },
     {
       "id": "P05",
-      "path": "plans/active/p05-table-ui-and-accessibility.md",
+      "path": "plans/done/p05-table-ui-and-accessibility.md",
       "depends": [
         "P04"
       ],

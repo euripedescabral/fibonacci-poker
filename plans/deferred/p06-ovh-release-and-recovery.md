@@ -3,7 +3,7 @@ id: P06
 name: Team launch, OVH isolation and recovery
 status: deferred
 dependencies: [P05]
-activation: Predecessor P05 complete and archived; implementation authorized
+activation: P05 complete; separate owner authorization for P06 and concrete release configuration required
 priority: P1
 effort: L
 ---

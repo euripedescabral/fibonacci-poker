@@ -1,6 +1,6 @@
 # Product contract
 
-Status: agreed product scope plus explicit engineering defaults chosen for executable plans, 2026-10-20. No app is implemented. Initial sharing is with the owner's Scrum team, not a high-volume service.
+Status: agreed product scope plus explicit engineering defaults chosen for executable plans, 2026-10-20. P01–P05 are implemented; production release remains P06. Initial sharing is with the owner's Scrum team, not a high-volume service.
 
 ## Agreed requirements
 

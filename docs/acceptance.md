@@ -1,6 +1,6 @@
 # Acceptance matrix
 
-All tests below are planned. No runtime acceptance passed during planning. Coverage IDs are referenced from each plan and audit.
+This matrix was authored before implementation. P01–P05 now have runtime evidence in done plans and the [UI acceptance report](reviews/ui-acceptance.md). P06 load, backup, deletion and production acceptance remain pending. Coverage IDs remain stable.
 
 | Test | Requirements | Scenario and expected proof | Owner |
 |---|---|---|---|

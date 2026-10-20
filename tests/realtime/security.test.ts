@@ -1,3 +1,33 @@
-import { expect,it } from 'vitest';
-import { harness } from './harness.js';
-it('rejects foreign origin, oversized JSON and public matchmaking',async()=>{const h=await harness();try{expect((await fetch(h.url+'/api/session',{method:'POST',headers:{Origin:'https://foreign.example','Content-Type':'application/json'},body:'{}'})).status).toBe(400);expect((await h.request('/api/session','',{name:'x'.repeat(5000)})).status).toBe(400);expect((await fetch(h.url+'/matchmake/create/table',{method:'POST'})).status).toBe(404);expect((await fetch(h.url+'/health/live')).headers.get('content-security-policy')).toContain("frame-ancestors 'none'");}finally{await h.close();}});
+import { expect, it } from "vitest";
+import { harness } from "./harness.js";
+it("rejects foreign origin, oversized JSON and public matchmaking", async () => {
+  const h = await harness();
+  try {
+    expect(
+      (
+        await fetch(h.url + "/api/session", {
+          method: "POST",
+          headers: {
+            Origin: "https://foreign.example",
+            "Content-Type": "application/json",
+          },
+          body: "{}",
+        })
+      ).status,
+    ).toBe(400);
+    expect(
+      (await h.request("/api/session", "", { name: "x".repeat(5000) })).status,
+    ).toBe(400);
+    expect(
+      (await fetch(h.url + "/matchmake/create/table", { method: "POST" }))
+        .status,
+    ).toBe(404);
+    expect(
+      (await fetch(h.url + "/health/live")).headers.get(
+        "content-security-policy",
+      ),
+    ).toContain("frame-ancestors 'none'");
+  } finally {
+    await h.close();
+  }
+});

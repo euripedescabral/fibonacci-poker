@@ -1,6 +1,6 @@
 # Protocol and persistence contract
 
-All paths below are NEW outputs of P01–P04. Contracts are design, not callable APIs yet.
+P01–P04 implement the routes and persistence below. P05 consumes them in the browser. Production HTTPS/proxy and operational release verification belong to P06.
 
 ## Routes and identity
 

@@ -1,6 +1,6 @@
 # Execution contract
 
-No implementation is authorized by plan creation. On a future execution request: read the index, product/protocol contracts, select the active plan, reconcile commits and changelog, establish a worktree and run baseline gates.
+Plan creation alone does not authorize implementation. The owner subsequently authorized P01–P05; P06 remains excluded. On execution: read the index, product/protocol contracts, select the active plan, reconcile commits and changelog, establish a worktree and run baseline gates.
 
 Default is **one agent, serial plans P01 → P02 → P03 → P04 → P05 → P06**. There is no safe parallel batch defined now: contracts, lockfile and integration dependencies are shared. Do not invent parallel dispatch from an opportunity to save time.
 
