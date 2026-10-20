@@ -86,7 +86,7 @@
     },
     {
       "id": "P03",
-      "path": "plans/active/p03-durable-storage-and-identity.md",
+      "path": "plans/done/p03-durable-storage-and-identity.md",
       "depends": [
         "P02"
       ],
@@ -126,7 +126,7 @@
     },
     {
       "id": "P04",
-      "path": "plans/deferred/p04-realtime-rooms-and-reconnection.md",
+      "path": "plans/active/p04-realtime-rooms-and-reconnection.md",
       "depends": [
         "P03"
       ],

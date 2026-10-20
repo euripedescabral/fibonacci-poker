@@ -1,7 +1,7 @@
 ---
 id: P04
 name: Shared rooms, presence and recovery
-status: deferred
+status: in-progress
 dependencies: [P03]
 activation: Predecessor P03 complete and archived; implementation authorized
 priority: P1

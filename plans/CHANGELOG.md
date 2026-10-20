@@ -13,3 +13,5 @@
 - P01 completed: npm ci, TypeScript 6 typecheck, ESLint, native SQLite + Preact build smoke and 3 foundation tests passed; npm audit: zero vulnerabilities. No product behavior claimed by foundation tests.
 
 - P02 completed: Typecheck, lint, 21 domain tests and full verify (24 tests) passed. Open-state projection secrecy, mode/ties, observer reveal, stale clear and completion edge cases covered.
+
+- P03 completed: 33 tests passed; transactional rollback, SQLite write failure and lock contention, cookie identity, receipt replay and disk recovery verified.

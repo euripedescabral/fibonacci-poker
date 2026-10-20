@@ -1,7 +1,7 @@
 ---
 id: P03
 name: Durable tables, identity and atomic mutations
-status: in-progress
+status: complete
 dependencies: [P02]
 activation: Predecessor P02 complete and archived; implementation authorized
 priority: P1
@@ -116,7 +116,7 @@ Read [acceptance matrix](../../docs/acceptance.md) for negative cases. Test with
 
 Resolved 2026-10-20: this is a planning package for the owner's team. Technology and behavior defaults live in project docs; live OVH facts are not assumed.
 
-Blast radius: 13 implementation file paths, plus serial plan/index/changelog bookkeeping. No files created by this plan yet.
+Blast radius: 13 implementation file paths, plus serial plan/index/changelog bookkeeping. Implementation completed; see execution evidence below.
 
 Learnings log (append-only): 2026-10-20 — greenfield gates are future outputs; no runtime verification can be claimed during authoring.
 
@@ -125,3 +125,7 @@ Cold-start continuity:
 2. Verify dependency P02 and current contract versions; get a clean task worktree.
 3. Run phase gates in order, stop on failure, record evidence without sensitive data.
 4. Audit requirements and diff; finish lifecycle, archive only completed scope and activate successor.
+
+### Execution evidence
+
+33 tests passed; transactional rollback, SQLite write failure and lock contention, cookie identity, receipt replay and disk recovery verified.
