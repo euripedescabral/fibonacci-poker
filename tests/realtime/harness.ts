@@ -37,7 +37,7 @@ export async function harness(options: Options = {}) {
     return (await (await request("/api/tables", cookie, {})).json())
       .tableId as string;
   }
-  async function join(tableId: string, cookie: string, name = "Test") {
+  async function join(tableId: string, cookie: string, name = "Test", headers: Record<string, string> = {}) {
     const response = await request("/api/tables/" + tableId + "/join", cookie, {
       name,
       schemaVersion: 1,
@@ -45,7 +45,7 @@ export async function harness(options: Options = {}) {
     const data = await response.json();
     if (!response.ok) throw Error(data.code);
     const room = await new Client(app.url, {
-      headers: { Origin: app.origin },
+      headers: { Origin: app.origin, ...headers },
     }).consumeSeatReservation<{ json: string }>(data.reservation);
     let state!: PublicState;
     let own!: OwnState;

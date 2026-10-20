@@ -139,3 +139,5 @@ Execution refinement: real SDK visibility harness belongs to P04-B after product
 ### Execution evidence
 
 44 tests passed including real SDK hidden-state inspection, simultaneous votes and clears, reservations, tab replacement, idle suspension, runtime eviction and isolated process crash after commit before broadcast. HTTP origin/body/session and private-only matchmaking verified.
+
+Final integration review: Colyseus resolves forwarded IP headers by default. The Node upgrade boundary now strips untrusted forwarding headers before the transport builds its auth context; a real SDK test verifies forged headers cannot replace the socket address. Owned files: server main and realtime harness/security tests.

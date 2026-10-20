@@ -33,4 +33,6 @@ P06 remains deferred and unauthorized. Production host/proxy verification, HTTPS
 
 ## Final automated gates
 
-`npm run verify`: 57 tests across 21 files, TypeScript, ESLint, source patterns and KERNEL structure pass. `npm run check:i18n`: 99 keys match. `npm run build`: production web/server succeed. `npm run check:bundle`: 92,253 gzip bytes against 204,800-byte budget. Late revealed-room joins and explicit outdated-client reload were also exercised in isolated browser contexts. Vite API/WebSocket proxy works with keyboard create/vote.
+`npm run verify`: 58 tests across 21 files, TypeScript, ESLint, source patterns and KERNEL structure pass. `npm run check:i18n`: 99 keys match. `npm run build`: production web/server succeed. `npm run check:bundle`: 92,253 gzip bytes against 204,800-byte budget. Late revealed-room joins and explicit outdated-client reload were also exercised in isolated browser contexts. Vite API/WebSocket proxy works with keyboard create/vote.
+
+Final boundary regression: real SDK handshake with forged forwarded-IP headers preserves the socket IP after stripping untrusted headers before Colyseus authentication.

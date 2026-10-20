@@ -41,6 +41,12 @@ export async function start(options: Options = {}) {
         ? undefined
         : new Response(null, { status: 403 }),
   });
+  // No proxy is trusted before the concrete P06 deployment is inspected.
+  // Colyseus otherwise prefers these headers over the socket address.
+  http.prependListener("upgrade", (request) => {
+    for (const name of ["x-real-ip", "x-forwarded-for", "x-client-ip", "x-forwarded-proto"])
+      delete request.headers[name];
+  });
   const game = new Server({
     transport,
     gracefullyShutdown: false,
