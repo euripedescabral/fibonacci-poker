@@ -1,0 +1,339 @@
+{
+  "plans": [
+    {
+      "id": "P01",
+      "path": "plans/active/p01-foundation-and-contracts.md",
+      "depends": [],
+      "phases": [
+        {
+          "id": "P01-A",
+          "files": [
+            "package.json",
+            "package-lock.json",
+            ".node-version",
+            "tsconfig.base.json",
+            "eslint.config.js",
+            ".env.example"
+          ],
+          "gate": "npm ci && npm exec tsc -- --version"
+        },
+        {
+          "id": "P01-B",
+          "files": [
+            "packages/contracts/package.json",
+            "packages/contracts/tsconfig.json",
+            "packages/contracts/src/index.ts",
+            "packages/domain/package.json",
+            "packages/domain/tsconfig.json",
+            "packages/domain/src/index.ts",
+            "apps/server/package.json",
+            "apps/server/tsconfig.json",
+            "apps/web/package.json",
+            "apps/web/tsconfig.json"
+          ],
+          "gate": "npm run typecheck"
+        },
+        {
+          "id": "P01-C",
+          "files": [
+            "vitest.config.ts",
+            "scripts/check-patterns.mjs",
+            "scripts/check-i18n.mjs",
+            "scripts/check-bundle.mjs",
+            ".github/workflows/ci.yml",
+            "tests/foundation.test.ts",
+            "docs/toolchain.md",
+            "scripts/install-hooks.sh",
+            ".githooks/pre-push"
+          ],
+          "gate": "npm run verify && python3 scripts/check-plans.py"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "path": "plans/deferred/p02-round-domain-and-protocol.md",
+      "depends": [
+        "P01"
+      ],
+      "phases": [
+        {
+          "id": "P02-A",
+          "files": [
+            "packages/contracts/src/commands.ts",
+            "packages/contracts/src/state.ts",
+            "packages/contracts/src/errors.ts",
+            "packages/contracts/src/constants.ts",
+            "packages/contracts/src/index.ts"
+          ],
+          "gate": "npm run typecheck"
+        },
+        {
+          "id": "P02-B",
+          "files": [
+            "packages/domain/src/round.ts",
+            "packages/domain/src/mode.ts",
+            "packages/domain/src/projection.ts",
+            "packages/domain/src/presence.ts",
+            "packages/domain/src/index.ts",
+            "tests/domain/round.test.ts",
+            "tests/domain/projection.test.ts",
+            "tests/domain/presence.test.ts"
+          ],
+          "gate": "npm run test:domain && npm run verify"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "path": "plans/deferred/p03-durable-storage-and-identity.md",
+      "depends": [
+        "P02"
+      ],
+      "phases": [
+        {
+          "id": "P03-A",
+          "files": [
+            "apps/server/src/storage/database.ts",
+            "apps/server/src/storage/migrations/001-initial.sql",
+            "apps/server/src/storage/migrate.ts",
+            "tests/storage/migrations.test.ts"
+          ],
+          "gate": "npm run test:storage"
+        },
+        {
+          "id": "P03-B",
+          "files": [
+            "apps/server/src/storage/tables.ts",
+            "apps/server/src/storage/commands.ts",
+            "apps/server/src/storage/memberships.ts",
+            "tests/storage/transactions.test.ts",
+            "tests/storage/replay.test.ts",
+            "tests/storage/recovery.test.ts"
+          ],
+          "gate": "npm run test:storage && npm run verify"
+        },
+        {
+          "id": "P03-C",
+          "files": [
+            "apps/server/src/identity/session.ts",
+            "apps/server/src/identity/tickets.ts",
+            "tests/storage/identity.test.ts"
+          ],
+          "gate": "npm run test:storage && npm run verify"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "path": "plans/deferred/p04-realtime-rooms-and-reconnection.md",
+      "depends": [
+        "P03"
+      ],
+      "phases": [
+        {
+          "id": "P04-A",
+          "files": [
+            "apps/server/src/rooms/directory.ts",
+            "apps/server/src/rooms/table-room.ts",
+            "apps/server/src/rooms/queue.ts",
+            "apps/server/src/rooms/presence.ts",
+            "tests/realtime/rooms.test.ts",
+            "tests/realtime/visibility.test.ts",
+            "tests/realtime/harness.ts"
+          ],
+          "gate": "npm run test:realtime"
+        },
+        {
+          "id": "P04-B",
+          "files": [
+            "apps/server/src/http/routes.ts",
+            "apps/server/src/http/security.ts",
+            "apps/server/src/http/limits.ts",
+            "apps/server/src/http/static.ts",
+            "apps/server/src/main.ts",
+            "tests/realtime/http.test.ts",
+            "tests/realtime/security.test.ts"
+          ],
+          "gate": "npm run test:realtime && npm run verify"
+        },
+        {
+          "id": "P04-C",
+          "files": [
+            "apps/server/src/rooms/lifecycle.ts",
+            "tests/realtime/reconnect.test.ts",
+            "tests/realtime/idle.test.ts",
+            "tests/realtime/races.test.ts",
+            "tests/realtime/crash.test.ts"
+          ],
+          "gate": "npm run test:realtime && npm run verify"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "path": "plans/deferred/p05-table-ui-and-accessibility.md",
+      "depends": [
+        "P04"
+      ],
+      "phases": [
+        {
+          "id": "P05-A",
+          "files": [
+            "apps/web/index.html",
+            "apps/web/vite.config.ts",
+            "apps/web/src/main.tsx",
+            "apps/web/src/app.tsx",
+            "apps/web/src/styles/tokens.css",
+            "apps/web/src/styles/app.css",
+            "apps/web/src/i18n/pt.ts",
+            "apps/web/src/i18n/en.ts",
+            "apps/web/src/i18n/index.ts",
+            "tests/web/i18n.test.ts"
+          ],
+          "gate": "npm run test:web && npm run check:i18n && npm run build"
+        },
+        {
+          "id": "P05-B",
+          "files": [
+            "apps/web/src/connection/client.ts",
+            "apps/web/src/connection/activity.ts",
+            "apps/web/src/connection/commands.ts",
+            "apps/web/src/preferences/store.ts",
+            "apps/web/src/preferences/audio.ts",
+            "apps/web/src/preferences/motion.ts",
+            "tests/web/connection.test.ts",
+            "tests/web/preferences.test.ts"
+          ],
+          "gate": "npm run test:web && npm run verify"
+        },
+        {
+          "id": "P05-C",
+          "files": [
+            "apps/web/src/ui/entry.tsx",
+            "apps/web/src/ui/table.tsx",
+            "apps/web/src/ui/card.tsx",
+            "apps/web/src/ui/deck.tsx",
+            "apps/web/src/ui/roster.tsx",
+            "apps/web/src/ui/settings.tsx",
+            "apps/web/src/ui/result.tsx",
+            "apps/web/src/ui/suits.tsx",
+            "tests/web/table.test.tsx",
+            "apps/web/src/ui/privacy.tsx"
+          ],
+          "gate": "npm run test:web && npm run check:i18n && npm run build"
+        },
+        {
+          "id": "P05-D",
+          "files": [
+            "tests/browser/scenarios.md",
+            "docs/reviews/ui-acceptance.md"
+          ],
+          "gate": "npm run check:bundle && npm run verify"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "path": "plans/deferred/p06-ovh-release-and-recovery.md",
+      "depends": [
+        "P05"
+      ],
+      "phases": [
+        {
+          "id": "P06-A",
+          "files": [
+            "Dockerfile",
+            ".dockerignore",
+            "compose.yaml",
+            "ops/backup.mjs",
+            "ops/restore.mjs",
+            "ops/privacy.mjs",
+            "tests/ops/backup.test.ts",
+            "tests/ops/privacy.test.ts",
+            "docs/operations.md"
+          ],
+          "gate": "npm run test:ops && docker compose config --quiet && docker build -t fibonacci-poker:preflight ."
+        },
+        {
+          "id": "P06-B",
+          "files": [
+            "tests/load/team.mjs",
+            "tests/ops/recovery.test.ts",
+            "docs/reviews/release-evidence.md"
+          ],
+          "gate": "npm run test:load && npm run test:recovery && npm run verify"
+        },
+        {
+          "id": "P06-C",
+          "files": [
+            "docs/reviews/ovh-preflight.md",
+            "docs/release-checklist.md",
+            "docs/privacy-notice.md",
+            "docs/dependency-licenses.md",
+            "apps/web/src/public-notice.ts",
+            "apps/web/src/ui/privacy.tsx",
+            "apps/web/src/i18n/pt.ts",
+            "apps/web/src/i18n/en.ts",
+            "tests/web/privacy.test.tsx",
+            "compose.yaml"
+          ],
+          "gate": "npm run test:web && npm run build && npm run verify && python3 scripts/check-plans.py"
+        },
+        {
+          "id": "P06-D",
+          "files": [
+            "docs/reviews/launch-evidence.md"
+          ],
+          "gate": "npm run test:ops && npm run verify"
+        }
+      ]
+    }
+  ],
+  "requirements": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06",
+    "R07",
+    "R08",
+    "R09",
+    "R10",
+    "R11",
+    "R12",
+    "R13",
+    "R14",
+    "R15",
+    "R16",
+    "R17",
+    "R18"
+  ],
+  "acceptance": [
+    "T01",
+    "T02",
+    "T03",
+    "T04",
+    "T05",
+    "T06",
+    "T07",
+    "T08",
+    "T09",
+    "T10",
+    "T11",
+    "T12",
+    "T13",
+    "T14",
+    "T15",
+    "T16",
+    "T17",
+    "T18",
+    "T19",
+    "T20",
+    "T21",
+    "T22",
+    "T23",
+    "T24"
+  ]
+}
