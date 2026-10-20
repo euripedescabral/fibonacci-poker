@@ -1,6 +1,6 @@
 # Acceptance matrix
 
-This matrix was authored before implementation. P01–P05 now have runtime evidence in done plans and the [UI acceptance report](reviews/ui-acceptance.md). P06 load, backup, deletion and production acceptance remain pending. Coverage IDs remain stable.
+This matrix was authored before implementation. P01–P05 now have runtime evidence in done plans and the [UI acceptance report](reviews/ui-acceptance.md). P06 backup/deletion/recovery tests and additional concurrency/idle scenarios now have [release evidence](reviews/release-evidence.md); load-soak completion and public production acceptance remain separately tracked. Coverage IDs remain stable.
 
 | Test | Requirements | Scenario and expected proof | Owner |
 |---|---|---|---|

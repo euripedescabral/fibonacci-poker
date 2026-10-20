@@ -14,3 +14,10 @@ diagram-path.txt
 output/
 data/
 .fixture-*/
+
+# Operator material stays outside source and build contexts.
+private/
+ledger/
+*.key
+*.pem
+*.enc

@@ -2,7 +2,7 @@
 
 Planning poker with persistent shared tables, Fibonacci cards and original fictional suits. Vote privately, reveal together and see the **mode: the most frequent value**, including ties.
 
-**P01–P05 implemented and locally verified.** Production deployment, operational backups and the OVH release remain P06 work. Initial audience: one Scrum team.
+**P01–P05 implemented; P06 operational tooling and isolated OVH verification are in progress.** Public deployment still requires DNS/provider authentication, a verified off-host backup job and final release facts. Initial audience: one Scrum team.
 
 ## Run locally
 
@@ -37,7 +37,7 @@ npm run build
 npm run check:bundle
 ```
 
-Verification includes domain, transactional storage, real SDK room integration, an isolated crash fixture and DOM tests. [Browser evidence](docs/reviews/ui-acceptance.md) records the separate Playwright MCP checks. P06 load/operations suites are intentionally outside this milestone.
+Verification includes domain, transactional storage, real SDK room integration, an isolated crash fixture and DOM tests. [Browser evidence](docs/reviews/ui-acceptance.md) records the separate Playwright MCP checks. Operational backup/privacy/recovery tests now run in `verify`. The separate 30-minute load runner targets isolated synthetic environments only; see [P06 release evidence](docs/reviews/release-evidence.md).
 
 ## Project contracts
 
@@ -45,6 +45,7 @@ Verification includes domain, transactional storage, real SDK room integration, 
 - [Product](docs/product.md), [architecture](docs/architecture.md), [protocol](docs/protocol.md)
 - [UI flows](docs/ui.md), [acceptance matrix](docs/acceptance.md)
 - [Security and release boundaries](docs/security.md)
+- [Operations runbook](docs/operations.md), [release checklist](docs/release-checklist.md)
 - [Original planning review](docs/reviews/plan-review.md)
 
-This personal public repository does not imply a software license grant. License selection, public domain, operator/contact details, host region and recovery operations must be resolved before production release in P06.
+This personal public repository does not imply a software license grant. The current no-license-grant policy is unchanged. Public domain, verified host region, provider configuration and recovery operations remain explicit P06 release checks.

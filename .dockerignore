@@ -9,3 +9,9 @@ output
 coverage
 *.sqlite*
 *.enc
+private
+ledger
+backups
+*.key
+*.pem
+.fixture-*

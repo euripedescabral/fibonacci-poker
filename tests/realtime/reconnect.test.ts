@@ -1,4 +1,4 @@
-import { it, expect } from "vitest";
+import { it, expect, vi } from "vitest";
 import { harness, waitFor } from "./harness.js";
 it("replaces an older tab and restores the private vote with the same identity", async () => {
   const h = await harness();
@@ -53,3 +53,33 @@ it("enforces capacity with 20 real clients and preserves replacement/retry seman
     await h.close();
   }
 }, 15000);
+
+it("rejects messages from a replaced socket even if its transport stays open", async () => {
+  const h = await harness();
+  let restoreClose: (() => void) | undefined;
+  try {
+    const cookie = await h.identity(),
+      id = await h.create(cookie);
+    const old = await h.join(id, cookie);
+    const runtime = await h.directory.room(id);
+    const socket = runtime.connections.members.get(old.own.id)!;
+    // Hold the transport close to reproduce a late message from a stale socket.
+    const held = vi.spyOn(socket, "leave").mockImplementation(() => undefined);
+    restoreClose = () => {
+      held.mockRestore();
+      socket.leave();
+    };
+    const current = await h.join(id, cookie);
+    expect(
+      await old.command({ type: "vote", payload: { value: 8 } }),
+    ).toMatchObject({ ok: false, code: "CONNECTION_REPLACED" });
+    expect(h.store.load(id).votes).toEqual({});
+    expect(
+      await current.command({ type: "vote", payload: { value: 5 } }),
+    ).toMatchObject({ ok: true });
+    expect(h.store.load(id).votes[current.own.id]).toBe(5);
+  } finally {
+    restoreClose?.();
+    await h.close();
+  }
+});

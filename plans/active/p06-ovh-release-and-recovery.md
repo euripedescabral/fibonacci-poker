@@ -11,7 +11,7 @@ effort: L
 
 ## Layer 1 — Core Configuration
 
-Current state: P01–P05 shipped at 503f2dd. P06 implementation is in progress in the isolated release worktree. File tables distinguish new operational artifacts from predecessor-owned runtime files; actual verification is recorded in release evidence.
+Current state: P01–P05 shipped at 503f2dd; P06 implementation commit b843ff7 has passing GitHub CI. P06 implementation is in progress in the isolated release worktree. File tables distinguish new operational artifacts from predecessor-owned runtime files; actual verification is recorded in release evidence.
 
 Objective: deliver team launch, ovh isolation and recovery according to the project contracts.
 
@@ -158,7 +158,7 @@ Read [acceptance matrix](../../docs/acceptance.md) for negative cases. Test with
 
 Resolved 2026-10-20: this is a planning package for the owner's team. Technology and behavior defaults live in project docs; live OVH facts are not assumed.
 
-Blast radius: 22 implementation file paths, plus serial plan/index/changelog bookkeeping. No files created by this plan yet.
+Blast radius: original operational scope plus the explicitly listed serial amendments and coordinator status documents. Implementation files now exist; live public routing/provider configuration remains pending.
 
 Learnings log (append-only): 2026-10-20 — greenfield gates are future outputs; no runtime verification can be claimed during authoring.
 
@@ -204,3 +204,7 @@ These inventories reconcile the before-edit amendments above. They execute seria
 | P06-B-acceptance | `tests/web/connection.test.ts`, `tests/browser/idle-fixture.mjs`, `tests/browser/scenarios.md` | `npm run test:web` plus recorded MCP idle scenario |
 
 The primary B batch plus its five extra files totals eight files; each supplemental batch is below the ten-file limit. Shared files are revisited only serially. Manifest and plan now enumerate the same scope.
+
+Before-edit hardening refinement: add `.gitignore` to the serial configuration batch and exclude `private/`, `ledger/`, key/ciphertext files and fixture directories from Git/build contexts. Operator keys and deletion ledger must never be accidentally staged or baked into an image. This is scope-specific to the new maintenance files.
+
+Coordinator status reconciliation before edit: update `README.md`, `docs/acceptance.md` and `docs/security.md` to distinguish implemented operational gates from remaining public-release blockers. No product/security contract is relaxed; these files currently still describe pre-P06 or planning-only state.

@@ -246,7 +246,8 @@
             "package.json",
             "package-lock.json",
             "tsconfig.base.json",
-            ".github/workflows/ci.yml"
+            ".github/workflows/ci.yml",
+            ".gitignore"
           ],
           "gate": "npm run verify"
         },

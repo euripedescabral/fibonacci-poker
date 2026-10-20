@@ -1,6 +1,6 @@
 # Security, privacy and release boundaries
 
-Design review only; no control is implemented yet. Public source repository is authorized; public production release is a separate action. A table link is an unlisted capability: anyone receiving it may enter and reveal/clear. There is no host, account, secret password or granular ACL in MVP. Communicate this on the join screen; do not market tables as protected from link recipients.
+Runtime controls are implemented and tested as recorded in the completed plans and [P06 release evidence](reviews/release-evidence.md). Public source and OVH deployment are explicitly authorized; actual provider configuration and release verification remain gates. A table link is an unlisted capability: anyone receiving it may enter and reveal/clear. There is no host, account, secret password or granular ACL in MVP. Communicate this on the join screen; do not market tables as protected from link recipients.
 
 ## Controls assigned to plans
 
@@ -35,6 +35,6 @@ Before production release, the owner must supply the public domain, operator/con
 
 These are release blockers, not blockers to writing local code. There is no stakeholder acceptance of unresolved legal risks in this plan package. Accessibility engineering targets WCAG 2.2 AA relevant to these flows; keyboard/motion/audio alternatives are tested regardless of any specific legal obligation.
 
-## Operational facts still to inspect
+## Operational fact reconciliation
 
-OVH proxy/container manager/version, host resources/free disk, existing networks/ports, existing monitoring/backup destination, domain/DNS and release account permissions. P06 begins read-only, records the exact isolated deployment configuration, and requests release authorization for that concrete candidate. No guessed Traefik labels, shared volume edits or other-project restarts.
+OVH resources, Docker/Traefik versions and the isolated network/proxy strategy have been inspected; see [OVH preflight](reviews/ovh-preflight.md). Domain/provider authentication, actual hosting region and an approved verified off-host destination remain unresolved. Deployment authority is already granted. No guessed Traefik labels, shared volume edits or other-project restarts are permitted.

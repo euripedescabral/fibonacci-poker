@@ -20,7 +20,7 @@ COPY --from=build --chown=node:node /app/dist ./dist
 COPY --from=build --chown=node:node /app/ops ./ops
 COPY --from=build --chown=node:node /app/package.json ./package.json
 COPY --from=build --chown=node:node /app/apps/server/src/storage/migrations ./apps/server/src/storage/migrations
-RUN mkdir /data /backups /ledger && chown node:node /data /backups /ledger
+RUN mkdir /data /backups /ledger && chown node:node /data /backups /ledger && chmod 700 /data /backups /ledger
 USER node
 EXPOSE 3000
 HEALTHCHECK --interval=15s --timeout=3s --start-period=10s --retries=3 CMD node -e "fetch('http://127.0.0.1:3000/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
