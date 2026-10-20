@@ -93,7 +93,7 @@ it("drops an unacknowledged vote on disconnect and reconciles a different round"
     id: randomUUID(),
     roundId: state.roundId,
     lastSequence: 0,
-    value: null,
+    value: 8,
   };
   const client = new LiveClient(
     state.tableId,
@@ -104,7 +104,20 @@ it("drops an unacknowledged vote on disconnect and reconciles a different round"
   try {
     await client.connect();
     rooms[0]!.messages.get("sync")!({ state, own });
-    client.send({ type: "vote", payload: { value: 8 } });
+    client.send({ type: "vote", payload: { value: 13 } });
+    expect(client.view.pending).toBe(true);
+    const rejected = rooms[0]!.send.mock.calls.find(
+      ([type]) => type === "command",
+    )![1] as { commandId: string };
+    rooms[0]!.messages.get("ack")!({
+      ok: false,
+      commandId: rejected.commandId,
+      code: "STORAGE_UNAVAILABLE",
+    });
+    expect(client.view.error).toBe("STORAGE_UNAVAILABLE");
+    expect(client.view.pending).toBe(false);
+    expect(client.view.own?.value).toBe(8);
+    client.send({ type: "vote", payload: { value: 13 } });
     expect(client.view.pending).toBe(true);
     rooms[0]!.leaveCallback(1006);
     expect(client.view.pending).toBe(false);
@@ -117,13 +130,13 @@ it("drops an unacknowledged vote on disconnect and reconciles a different round"
     };
     rooms[1]!.messages.get("sync")!({
       state: next,
-      own: { ...own, roundId: next.roundId },
+      own: { ...own, roundId: next.roundId, value: null },
     });
     expect(client.view.status).toBe("live");
     expect(client.view.own?.value).toBeNull();
     expect(
       rooms[0]!.send.mock.calls.filter(([type]) => type === "command"),
-    ).toHaveLength(1);
+    ).toHaveLength(2);
     expect(
       rooms[1]!.send.mock.calls.filter(([type]) => type === "command"),
     ).toHaveLength(0);

@@ -1,6 +1,6 @@
 # Team release checklist
 
-Status: **hold for provider configuration and final load evidence**. Deployment authorization already exists. A checked implementation gate is not proof of a public deployment.
+Status: **hold for provider configuration and public-origin release checks**. Deployment authorization already exists. A checked implementation gate is not proof of a public deployment.
 
 - [x] P01–P05 baseline reconciled; P06 activated in an isolated worktree.
 - [x] OVH resources, networks, proxy integration and sibling isolation inspected.
@@ -10,7 +10,7 @@ Status: **hold for provider configuration and final load evidence**. Deployment 
 - [x] Twenty real clients enforce capacity; concurrent vote/reveal preserves frozen results.
 - [x] Twenty runtime-disposal cycles leave no rooms retained; measured heap growth after warmup is under 1 MiB.
 - [x] PT/EN operator/privacy notice and distributed third-party notices implemented; mobile privacy page has no overflow at 360 px.
-- [ ] Thirty-minute 5×20 load completed with p95 ≤200 ms and zero lost acknowledgments.
+- [x] Thirty-minute 5×20 load completed with p95 ≤200 ms and zero lost acknowledgments.
 - [ ] Final immutable artifact/source commit and CI recorded.
 - [ ] Approved hostname and DNS configured; TLS certificate/origin validated.
 - [ ] Exact OVH region, private contact and provider/processing terms confirmed for this team.

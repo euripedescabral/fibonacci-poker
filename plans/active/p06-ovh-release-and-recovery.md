@@ -208,3 +208,27 @@ The primary B batch plus its five extra files totals eight files; each supplemen
 Before-edit hardening refinement: add `.gitignore` to the serial configuration batch and exclude `private/`, `ledger/`, key/ciphertext files and fixture directories from Git/build contexts. Operator keys and deletion ledger must never be accidentally staged or baked into an image. This is scope-specific to the new maintenance files.
 
 Coordinator status reconciliation before edit: update `README.md`, `docs/acceptance.md` and `docs/security.md` to distinguish implemented operational gates from remaining public-release blockers. No product/security contract is relaxed; these files currently still describe pre-P06 or planning-only state.
+
+Acceptance audit refinement before edit: add existing `tests/web/table.test.tsx` to the P06-B-acceptance batch. Its pending/error title previously asserted only the initial selected card; extend it to actual pending and storage-error states, and extend the transport test to a rejected ACK before disconnect/new-round reconciliation. This closes an evidence gap without changing runtime behavior.
+
+P06-B before-edit fault coverage addition: `tests/realtime/crash.test.ts` will inject real SQLite page exhaustion during a vote through a temporary SQL trigger, asserting the WebSocket error ACK and unchanged public/private state, then successful recovery. This expands the primary B inventory to nine files and closes the published-state portion of T13.
+
+### Public-release handoff
+
+Deployment authority is already explicit; do not ask for it again. Source/operational tooling is implemented, but this plan remains active until real public release checks pass.
+
+1. Authenticate the owner's provider session, verify the correct account/zone and confirm the hostname (candidate `poker.agentshorts.dev`). Origin certificate SAN covers the candidate; DNS and edge HTTPS/WSS have not been configured or tested.
+2. Confirm the actual OVH hosting region from the provider account and finalize the deployment notice/contact/terms for the owner's team. Build with `VITE_HOSTING_REGION` and `VITE_RELEASE_READY=true` only after the facts are verified.
+3. Configure a dedicated private off-host bucket and object credentials in `OFFHOST_CONFIG`, generate `BACKUP_KEY_FILE`, and escrow the key independently of OVH. Never reuse another application's bucket or publish credentials.
+4. Build/tag the exact main commit; record its immutable image ID. Deploy only the isolated Compose project/volume and rendered `ops/traefik.yml` as a new file-provider configuration. Preserve other projects and the proxy process.
+5. Verify the real encrypted upload/download/restore, latest deletion ledger and daily locked maintenance job; confirm retention/health/disk checks. Same-host fixture backups are not off-host recovery evidence.
+6. Run public-origin Playwright MCP smoke with two separate identities: hidden vote, reveal/mode, observer, clear, reconnect, mobile and privacy notice. Confirm Secure cookie/CSP/WSS and sibling health. Do not replace this with SDK-only tests.
+7. Reconcile `docs/reviews/launch-evidence.md`, release checklist and this plan; archive only after every remaining blocker is resolved. Keep measured failed baselines alongside the optimized result.
+
+The temporary test servers have no public route. Their synthetic recovery/load evidence is separate from production. Resume from Git/main and inspect actual provider/container state before making any change.
+
+### Verified execution result — 2026-10-20
+
+P06-A and the isolated P06-B gates pass: 72 tests / 25 files, TypeScript/lint, build, 104-key locale parity, bundle budget, Compose, Linux Docker build, local/browser fault scenarios, OVH restart/rollback and separate-volume restore. The original 0.5-CPU soak failed at 508.9 ms p95. After reducing redundant snapshots, the 1-CPU/512-MiB soak completed 1800.015 seconds, 173 rounds and 19,030 successful ACKs with 172.54 ms p95 (326.89 ms maximum), no lost ACKs or room-isolation failures. Twenty disposal cycles retained only 282,128 extra heap bytes after warmup.
+
+P06-C tooling/notice preparation is implemented; provider authentication, actual hosting-region confirmation, off-host bucket/key escrow/job and public notice activation remain unresolved. P06-D has not run: no public launch or URL is claimed. Keep this plan active and use the handoff above. Source changes can land independently of provider configuration; do not describe that merge as a production release.

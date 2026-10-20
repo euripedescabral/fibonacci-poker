@@ -6,7 +6,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { randomUUID } from "node:crypto";
 import { Client } from "@colyseus/sdk";
-import { harness } from "./harness.js";
+import { harness, waitFor } from "./harness.js";
 it("recovers a command committed immediately before a process crash, without replaying sound", async () => {
   const dir = mkdtempSync(join(tmpdir(), "fp-crash-")),
     dbPath = join(dir, "test.sqlite");
@@ -91,5 +91,39 @@ it("recovers a command committed immediately before a process crash, without rep
       await once(child, "exit");
     }
     rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+it("keeps published state unchanged on real SQLITE_FULL and accepts a later retry", async () => {
+  const h = await harness();
+  try {
+    const ca = await h.identity(),
+      cb = await h.identity(),
+      id = await h.create(ca);
+    const a = await h.join(id, ca),
+      b = await h.join(id, cb);
+    h.store.db.exec(
+      "CREATE TABLE full_fixture(data BLOB); CREATE TRIGGER force_full AFTER INSERT ON votes BEGIN INSERT INTO full_fixture VALUES(zeroblob(1048576)); END;",
+    );
+    h.store.db.pragma(
+      `max_page_count=${h.store.db.pragma("page_count", { simple: true })}`,
+    );
+    expect(
+      await a.command({ type: "vote", payload: { value: 8 } }),
+    ).toMatchObject({ ok: false, code: "STORAGE_UNAVAILABLE" });
+    expect(a.own.value).toBeNull();
+    expect(a.state.submitted).toBe(0);
+    expect(b.state.submitted).toBe(0);
+    expect(h.store.load(id).votes).toEqual({});
+    h.store.db.exec("DROP TRIGGER force_full");
+    h.store.db.pragma("max_page_count=10000");
+    expect(
+      await a.command({ type: "vote", payload: { value: 8 } }),
+    ).toMatchObject({ ok: true });
+    await waitFor(() => b.state.submitted === 1);
+    expect(a.own.value).toBe(8);
+    expect(b.own.value).toBeNull();
+  } finally {
+    await h.close();
   }
 });

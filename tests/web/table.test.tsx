@@ -55,11 +55,53 @@ it("withdraws confirmed own card and keeps confirmed UI during pending/error", (
   const view = fixture();
   view.own!.value = 8;
   const action = vi.fn();
-  render(<Table view={view} onAction={action} t={translator("en")} />);
+  const rendered = render(
+    <Table view={view} onAction={action} t={translator("en")} />,
+  );
   fireEvent.click(
     screen.getByRole("button", { name: "Choose 8", exact: true }),
   );
   expect(action).toHaveBeenCalledWith({ type: "withdraw", payload: {} });
+  expect(
+    screen
+      .getByRole("button", { name: "Choose 8", exact: true })
+      .getAttribute("aria-pressed"),
+  ).toBe("true");
+  rendered.rerender(
+    <Table
+      view={{ ...view, pending: true }}
+      onAction={action}
+      t={translator("en")}
+    />,
+  );
+  expect(
+    (
+      screen.getByRole("button", {
+        name: "Choose 8",
+        exact: true,
+      }) as HTMLButtonElement
+    ).disabled,
+  ).toBe(true);
+  expect(
+    screen
+      .getByRole("button", { name: "Choose 8", exact: true })
+      .getAttribute("aria-pressed"),
+  ).toBe("true");
+  rendered.rerender(
+    <Table
+      view={{ ...view, pending: false, error: "STORAGE_UNAVAILABLE" }}
+      onAction={action}
+      t={translator("en")}
+    />,
+  );
+  expect(
+    (
+      screen.getByRole("button", {
+        name: "Choose 8",
+        exact: true,
+      }) as HTMLButtonElement
+    ).disabled,
+  ).toBe(false);
   expect(
     screen
       .getByRole("button", { name: "Choose 8", exact: true })

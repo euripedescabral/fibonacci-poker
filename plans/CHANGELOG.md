@@ -23,3 +23,5 @@
 - P01–P05 final integration: 58 tests pass after adding WebSocket forwarded-header regression. P06 stays deferred.
 
 - P06 activated after the owner's explicit deployment/execution request. Added isolated container configuration, authenticated SQLite backup/restore, deletion replay/expiry, S3 off-host adapter, bilingual release notice and dependency notices. Local verification now passes 70 tests; real OVH synthetic recovery/rollback/restore passes. Measured 1-CPU calibration failed p95 at 362.9 ms; reduced redundant per-vote snapshots and started a fresh 30-minute soak. Public DNS/provider access, off-host job/key escrow and hosting-region facts remain unresolved, so P06 stays active and no public launch is claimed.
+
+- P06 isolated gates completed: 72 tests in 25 files; original 30-minute baseline failed at 508.9 ms p95, optimized 1-CPU soak passed with 100 clients, 173 rounds, 19,030 ACKs and 172.54 ms p95. Real OVH restart/rollback/restore, SQL-full WebSocket recovery and trusted-input idle resume verified. Public deployment remains blocked on provider configuration; P06 stays active.

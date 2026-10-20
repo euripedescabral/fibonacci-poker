@@ -277,7 +277,8 @@
             "tests/ops/container-recovery.mjs",
             "tests/realtime/races.test.ts",
             "tests/realtime/reconnect.test.ts",
-            "tests/storage/transactions.test.ts"
+            "tests/storage/transactions.test.ts",
+            "tests/realtime/crash.test.ts"
           ],
           "gate": "npm run test:load && npm run test:recovery && npm run verify"
         },
@@ -294,7 +295,8 @@
           "files": [
             "tests/web/connection.test.ts",
             "tests/browser/idle-fixture.mjs",
-            "tests/browser/scenarios.md"
+            "tests/browser/scenarios.md",
+            "tests/web/table.test.tsx"
           ],
           "gate": "npm run test:web"
         },
