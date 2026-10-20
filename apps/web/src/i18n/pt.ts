@@ -1,4 +1,10 @@
 export const pt = {
+  privacyLicenses: "Licenças de terceiros",
+  privacyOperator: "Responsável",
+  privacyContact: "Fale com o responsável em particular",
+  privacyRegion: "Região de hospedagem",
+  privacyBackup: "Backups criptografados são mantidos por até 7 dias. Identidades expiradas são removidas após 365 dias sem renovar a sessão deste navegador. Para solicitar uma cópia ou exclusão, fale com o responsável; não publique cookies ou links de mesas em mensagens públicas.",
+
   loading: "Carregando a mesa…",
   loadFailure: "Se a mesa não abrir, atualize a página.",
   frequencyOne: "1 voto por valor",

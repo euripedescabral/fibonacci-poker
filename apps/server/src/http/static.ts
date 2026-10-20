@@ -25,12 +25,15 @@ export async function serveStatic(
           ".js": "text/javascript",
           ".css": "text/css",
           ".svg": "image/svg+xml",
+          ".txt": "text/plain; charset=utf-8",
         } as Record<string, string>
       )[extname(target)] ?? "application/octet-stream",
     );
     res.setHeader(
       "Cache-Control",
-      asset ? "public, max-age=31536000, immutable" : "no-cache",
+      asset && extname(target) !== ".txt"
+        ? "public, max-age=31536000, immutable"
+        : "no-cache",
     );
     res.end(data);
   } catch {

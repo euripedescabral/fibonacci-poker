@@ -1,0 +1,35 @@
+name: fibonacci-poker
+services:
+  poker:
+    image: ${POKER_IMAGE:-fibonacci-poker:preflight}
+    container_name: fibonacci-poker
+    init: true
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    stop_grace_period: 30s
+    environment:
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      DB_PATH: /data/poker.sqlite
+      COOKIE_SECURE: "true"
+    volumes:
+      - poker-data:/data
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    networks: [proxy]
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "3"
+volumes:
+  poker-data:
+    name: fibonacci-poker-data
+networks:
+  proxy:
+    external: true
+    name: dokploy-network

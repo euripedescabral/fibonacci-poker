@@ -1,0 +1,24 @@
+# Render POKER_DOMAIN to the approved DNS hostname before installing this file.
+# Unique router/service names; leave shared configuration untouched.
+http:
+  routers:
+    fibonacci-poker-http:
+      rule: "Host(`POKER_DOMAIN`)"
+      entryPoints: [web]
+      middlewares: [fibonacci-poker-https]
+      service: fibonacci-poker
+    fibonacci-poker-https:
+      rule: "Host(`POKER_DOMAIN`)"
+      entryPoints: [websecure]
+      service: fibonacci-poker
+      tls: {}
+  middlewares:
+    fibonacci-poker-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+  services:
+    fibonacci-poker:
+      loadBalancer:
+        servers:
+          - url: http://fibonacci-poker:3000

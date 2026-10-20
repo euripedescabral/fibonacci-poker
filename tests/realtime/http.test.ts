@@ -23,3 +23,17 @@ it("serves health and requires session; unknown tables never create", async () =
     await h.close();
   }
 });
+it("serves dependency notices as readable text without stale immutable caching", async () => {
+  const h = await harness({ staticRoot: "apps/web/public" });
+  try {
+    const response = await fetch(h.url + "/assets/third-party-notices.txt");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toBe(
+      "text/plain; charset=utf-8",
+    );
+    expect(response.headers.get("cache-control")).toBe("no-cache");
+    expect(await response.text()).toContain("MIT License");
+  } finally {
+    await h.close();
+  }
+});

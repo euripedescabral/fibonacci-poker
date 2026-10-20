@@ -235,11 +235,21 @@
     },
     {
       "id": "P06",
-      "path": "plans/deferred/p06-ovh-release-and-recovery.md",
+      "path": "plans/active/p06-ovh-release-and-recovery.md",
       "depends": [
         "P05"
       ],
       "phases": [
+        {
+          "id": "P06-config",
+          "files": [
+            "package.json",
+            "package-lock.json",
+            "tsconfig.base.json",
+            ".github/workflows/ci.yml"
+          ],
+          "gate": "npm run verify"
+        },
         {
           "id": "P06-A",
           "files": [
@@ -251,7 +261,8 @@
             "ops/privacy.mjs",
             "tests/ops/backup.test.ts",
             "tests/ops/privacy.test.ts",
-            "docs/operations.md"
+            "docs/operations.md",
+            "apps/server/src/main.ts"
           ],
           "gate": "npm run test:ops && docker compose config --quiet && docker build -t fibonacci-poker:preflight ."
         },
@@ -260,9 +271,31 @@
           "files": [
             "tests/load/team.mjs",
             "tests/ops/recovery.test.ts",
-            "docs/reviews/release-evidence.md"
+            "docs/reviews/release-evidence.md",
+            "tests/load/disposal.mjs",
+            "tests/ops/container-recovery.mjs",
+            "tests/realtime/races.test.ts",
+            "tests/realtime/reconnect.test.ts",
+            "tests/storage/transactions.test.ts"
           ],
           "gate": "npm run test:load && npm run test:recovery && npm run verify"
+        },
+        {
+          "id": "P06-B-perf",
+          "files": [
+            "apps/server/src/rooms/table-room.ts",
+            "compose.yaml"
+          ],
+          "gate": "npm run test:realtime && npm run test:load"
+        },
+        {
+          "id": "P06-B-acceptance",
+          "files": [
+            "tests/web/connection.test.ts",
+            "tests/browser/idle-fixture.mjs",
+            "tests/browser/scenarios.md"
+          ],
+          "gate": "npm run test:web"
         },
         {
           "id": "P06-C",
@@ -279,6 +312,18 @@
             "compose.yaml"
           ],
           "gate": "npm run test:web && npm run build && npm run verify && python3 scripts/check-plans.py"
+        },
+        {
+          "id": "P06-C-ops",
+          "files": [
+            "ops/offhost.mjs",
+            "ops/daily-backup.sh",
+            "ops/traefik.yml",
+            "apps/web/public/assets/third-party-notices.txt",
+            "apps/server/src/http/static.ts",
+            "tests/realtime/http.test.ts"
+          ],
+          "gate": "npm run test:ops && npm run test:realtime && npm run build"
         },
         {
           "id": "P06-D",

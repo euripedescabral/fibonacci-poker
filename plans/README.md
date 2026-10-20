@@ -1,6 +1,6 @@
 # Implementation plan index
 
-**P01–P05 complete and locally verified. P06 remains excluded.** Runtime evidence is recorded in each completed plan and the UI acceptance report. Initial usage: one Scrum team, modest load.
+**P01–P05 complete and locally verified. P06 execution and deployment now authorized.** Runtime evidence is recorded in each completed plan and the UI acceptance report. Initial usage: one Scrum team, modest load.
 
 | Order | Plan | Status | Activation |
 |---|---|---|---|
@@ -9,7 +9,7 @@
 | P03 | [Durable tables, identity and atomic mutations](done/p03-durable-storage-and-identity.md) | Complete | P02 |
 | P04 | [Shared rooms, presence and recovery](done/p04-realtime-rooms-and-reconnection.md) | Complete | P03 |
 | P05 | [Poker table UI, localization and preferences](done/p05-table-ui-and-accessibility.md) | Complete | P04 |
-| P06 | [Team launch, OVH isolation and recovery](deferred/p06-ovh-release-and-recovery.md) | Deferred: release authorization | P05 + owner release scope |
+| P06 | [Team launch, OVH isolation and recovery](active/p06-ovh-release-and-recovery.md) | In progress | P05 + owner release scope |
 
 This index is the master coordinator; six KERNEL execution plans own the implementation. It is not a seventh overlapping plan. Execution is serial: P01 → P02 → P03 → P04 → P05 → P06.
 
@@ -26,4 +26,4 @@ See lifecycle status above for the active plan. Dependent plans move from deferr
 
 ## Release-only unresolved facts
 
-P06 must inspect OVH resources/proxy/ports; obtain domain, operator contact, actual region, approved backup destination, license decision and release authorization. These facts do not block local implementation P01–P05. The plans never substitute guessed live configuration.
+OVH resources/proxy isolation and deployment authority are verified. Public DNS/provider authentication, verified hosting region, dedicated off-host backup/key escrow and final public-origin smoke remain release blockers. Existing no-license-grant policy is preserved. Consult release evidence for measured gates; do not invent live configuration.

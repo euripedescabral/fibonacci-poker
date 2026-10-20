@@ -13,3 +13,7 @@ Use Playwright MCP against the built local server. Use synthetic names and separ
 9. Block the initial `/assets/*.js` request. The bilingual static reload link must remain usable; remove the block and follow it to recover.
 10. Keyboard-only entry: input, Tab, Enter, card Space/Enter, settings Tab/Escape. Test 200% browser zoom or equivalent 720-CSS-pixel reflow at a 1440-pixel window and record which method was actually used.
 11. Unit/integration complements: audio dedup and browser refusal, 15-minute idle clock, transactional failure, stale-round and duplicate-command handling, protocol mismatch, 20-seat admission and commit-before-broadcast process crash.
+
+## P06 idle replay with real browser input
+
+Build the app, then run `node tests/browser/idle-fixture.mjs`. Through Playwright MCP open `http://127.0.0.1:3111`, create a synthetic table and choose 5. Wait for its confirmed pressed state. Type `idle` into the fixture process stdin; its server clock advances 900001 ms. Wait for the `Resume` button and disabled hand. Bring the page to front: it must remain paused. Press ArrowRight through Playwright keyboard input; wait for `Fibonacci Poker / Table connected`, then assert `Choose 5` is pressed and enabled. This validates a real trusted input event, not synthetic DOM event dispatch. Stop the fixture afterward; all its data is in memory.

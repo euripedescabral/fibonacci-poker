@@ -44,3 +44,28 @@ it("reserves exactly 20 identities, allows replacement and bounds active rooms",
     await h.close();
   }
 });
+it("orders a simultaneous vote and reveal without changing the frozen result", async () => {
+  const h = await harness();
+  try {
+    const ca = await h.identity(),
+      cb = await h.identity();
+    const id = await h.create(ca);
+    const a = await h.join(id, ca),
+      b = await h.join(id, cb);
+    await a.command({ type: "vote", payload: { value: 3 } });
+    const [vote, reveal] = await Promise.all([
+      b.command({ type: "vote", payload: { value: 8 } }),
+      a.command({ type: "reveal", payload: {} }),
+    ]);
+    expect(reveal.ok).toBe(true);
+    const frozen = h.store.load(id).revealed!;
+    expect(frozen.cards.some((card) => card.id === b.own.id)).toBe(vote.ok);
+    if (!vote.ok) expect(vote.code).toBe("ROUND_CLOSED");
+    expect(
+      await b.command({ type: "vote", payload: { value: 13 } }),
+    ).toMatchObject({ ok: false, code: "ROUND_CLOSED" });
+    expect(h.store.load(id).revealed).toEqual(frozen);
+  } finally {
+    await h.close();
+  }
+});

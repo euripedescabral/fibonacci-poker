@@ -65,3 +65,42 @@ it("rejects a real SQLite read-only write without acknowledging", () => {
     db.close();
   }
 });
+it("rolls back a real SQLITE_FULL during a command and recovers without a lost vote", () => {
+  const db = openDatabase(":memory:");
+  try {
+    db.prepare("INSERT INTO identities VALUES(?,?,?,?)").run(
+      "a",
+      "hash",
+      0,
+      9999999999999,
+    );
+    const store = new TableStore(db),
+      state = joinMember(store, store.create(), "a", "Ana");
+    const command = commandSchema.parse({
+      type: "vote",
+      payload: { value: 8 },
+      roundId: state.roundId,
+      sequence: 1,
+      commandId: randomUUID(),
+    });
+    db.exec("CREATE TABLE capacity_fixture(data BLOB)");
+    db.pragma(`max_page_count=${db.pragma("page_count", { simple: true })}`);
+    expect(() =>
+      executeCommand(store, state, "a", command, () => {
+        db.prepare("INSERT INTO capacity_fixture VALUES(?)").run(
+          Buffer.alloc(1024 * 1024),
+        );
+      }),
+    ).toThrow("STORAGE_UNAVAILABLE");
+    expect(store.load(state.tableId).votes).toEqual({});
+    expect(state.votes).toEqual({});
+    expect(
+      db.prepare("SELECT count(*) AS n FROM command_receipts").get(),
+    ).toEqual({ n: 0 });
+    db.pragma("max_page_count=10000");
+    expect(executeCommand(store, state, "a", command).reply.ok).toBe(true);
+    expect(store.load(state.tableId).votes.a).toBe(8);
+  } finally {
+    db.close();
+  }
+});

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.base.json",
-    "lint": "eslint apps packages tests scripts --no-error-on-unmatched-pattern",
+    "lint": "eslint apps packages tests scripts ops --no-error-on-unmatched-pattern",
     "test": "vitest run",
     "test:domain": "vitest run tests/domain",
     "test:storage": "vitest run tests/storage",
@@ -30,6 +30,7 @@
     "test:ops": "vitest run tests/ops"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "3.1153.0",
     "@colyseus/core": "0.18.19",
     "@colyseus/schema": "5.0.41",
     "@colyseus/sdk": "0.18.5",

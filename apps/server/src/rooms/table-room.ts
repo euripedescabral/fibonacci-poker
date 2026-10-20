@@ -128,7 +128,11 @@ export class TableRoom extends Room<{ state: PublicSchema }> {
         this.services.afterCommit?.();
         this.update(applied.state);
         client.send("ack", applied.reply);
-        this.syncAll();
+        // Public state already reaches peers through Colyseus patches. Individual
+        // actions change only the actor's private state; avoid 20 full snapshots
+        // per vote. Round boundaries immediately synchronize every participant.
+        if (command.type === "clear" || command.type === "reveal") this.syncAll();
+        else this.sync(client);
       });
     } catch (error) {
       client.send("ack", { ok: false, commandId, code: errorCode(error) });

@@ -12,6 +12,7 @@ import { TableRoom } from "./rooms/table-room.js";
 import { routes } from "./http/routes.js";
 export interface Options {
   port?: number;
+  host?: string;
   origin?: string;
   dbPath?: string;
   secure?: boolean;
@@ -72,7 +73,7 @@ export async function start(options: Options = {}) {
   });
   await game.listen(
     options.port ?? Number(process.env.PORT ?? 3000),
-    "127.0.0.1",
+    options.host ?? process.env.HOST ?? "127.0.0.1",
   );
   const port = (http.address() as { port: number }).port;
   if (options.origin === "auto") expectedOrigin = "http://127.0.0.1:" + port;
