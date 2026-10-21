@@ -1,6 +1,6 @@
 # Operations
 
-One application process, one dedicated SQLite volume, one external Traefik network. Initial audience is the owner's team. Production activation is still gated by the release checklist; commands below are the runbook, not evidence of an already completed launch.
+One application process, one dedicated SQLite volume, one external Traefik network. Initial audience is the owner's team. Production is live at https://fibotable.com; see the launch evidence for the deployed artifact, backup rehearsal and remaining host maintenance.
 
 ## Container
 

@@ -1,6 +1,6 @@
 # Team release checklist
 
-Status: **hold for provider configuration and public-origin release checks**. Deployment authorization already exists. A checked implementation gate is not proof of a public deployment.
+Status: **live for the owner’s team; see launch evidence and shared-host OS follow-up**. Deployment authorization already exists. A checked implementation gate is not proof of a public deployment.
 
 - [x] P01–P05 baseline reconciled; P06 activated in an isolated worktree.
 - [x] OVH resources, networks, proxy integration and sibling isolation inspected.
@@ -11,13 +11,13 @@ Status: **hold for provider configuration and public-origin release checks**. De
 - [x] Twenty runtime-disposal cycles leave no rooms retained; measured heap growth after warmup is under 1 MiB.
 - [x] PT/EN operator/privacy notice and distributed third-party notices implemented; mobile privacy page has no overflow at 360 px.
 - [x] Thirty-minute 5×20 load completed with p95 ≤200 ms and zero lost acknowledgments.
-- [ ] Final immutable artifact/source commit and CI recorded.
-- [ ] Approved hostname and DNS configured; TLS certificate/origin validated.
-- [ ] Exact OVH region, private contact and provider/processing terms confirmed for this team.
-- [ ] Dedicated private off-host destination configured; upload/download/restore verified using real provider credentials.
-- [ ] Backup key escrow stored outside OVH; daily job, retention, monitoring and failure handling verified.
-- [ ] Final production `/privacy` build activated with verified facts.
-- [ ] Public HTTPS/WSS smoke with two isolated browser identities, reveal/clear/reconnect and mobile layout.
-- [ ] Production backup/rollback rehearsal and sibling health comparison recorded.
+- [x] Final immutable artifact/source commit and CI recorded.
+- [x] Approved hostname and DNS configured; TLS certificate/origin validated.
+- [x] Exact OVH region and public operator/contact recorded; provider references documented for the requested personal team scope, without blanket legal certification.
+- [x] Dedicated private off-host destination configured; upload/download/restore verified using real provider credentials.
+- [x] Backup key escrow stored outside OVH; daily job, retention, monitoring and failure handling verified.
+- [x] Final production `/privacy` build activated with verified facts.
+- [x] Public HTTPS/WSS smoke with two isolated browser identities, reveal/clear/reconnect and mobile layout.
+- [x] Production backup/rollback rehearsal and sibling health comparison recorded.
 
 Do not archive P06 while any release item remains unresolved. Physical-device/screen-reader testing and actual browser 200% zoom are not certified by viewport emulation; keep those limitations explicit in acceptance evidence.

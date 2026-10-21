@@ -2,7 +2,7 @@
 
 Planning poker with persistent shared tables, Fibonacci cards and original fictional suits. Vote privately, reveal together and see the **mode: the most frequent value**, including ties.
 
-**P01–P05 implemented; P06 operational tooling and isolated OVH verification are in progress.** Public deployment still requires the new domain configuration, a verified off-host backup job and final release facts. Initial audience: one Scrum team.
+**Live: https://fibotable.com**. P01–P06 implemented and deployed on OVH with a persistent SQLite volume and encrypted daily off-host backups. Initial audience: one Scrum team. See [launch evidence](docs/reviews/launch-evidence.md) for verification and the shared-host OS maintenance finding.
 
 ## Run locally
 
@@ -48,7 +48,7 @@ Verification includes domain, transactional storage, real SDK room integration, 
 - [Operations runbook](docs/operations.md), [release checklist](docs/release-checklist.md)
 - [Original planning review](docs/reviews/plan-review.md)
 
-This personal public repository does not imply a software license grant. The current no-license-grant policy is unchanged. Public domain, verified host region, provider configuration and recovery operations remain explicit P06 release checks.
+This personal public repository does not imply a software license grant. The current no-license-grant policy is unchanged. Deployment and recovery evidence is recorded in the completed P06 plan.
 
 ## Brand
 

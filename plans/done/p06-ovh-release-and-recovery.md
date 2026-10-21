@@ -1,7 +1,7 @@
 ---
 id: P06
 name: Team launch, OVH isolation and recovery
-status: in-progress
+status: complete
 dependencies: [P05]
 activation: Owner explicitly requested P06 execution and deployment on 2026-10-20
 priority: P1
@@ -11,7 +11,7 @@ effort: L
 
 ## Layer 1 — Core Configuration
 
-Current state: P01–P05 shipped at 503f2dd; P06 implementation commit b843ff7 has passing GitHub CI. P06 implementation is in progress in the isolated release worktree. File tables distinguish new operational artifacts from predecessor-owned runtime files; actual verification is recorded in release evidence.
+Current state: P01–P06 shipped; Fibotable is live at https://fibotable.com from application source cfe300b with passing CI and verified public/recovery evidence. File tables distinguish new operational artifacts from predecessor-owned runtime files; actual verification is recorded in release evidence.
 
 Objective: deliver team launch, ovh isolation and recovery according to the project contracts.
 
@@ -32,9 +32,9 @@ DESIGNED means specified but not implemented; release blockers require owner res
 
 | Boundary | Control | Status | Required evidence | Owner |
 |---|---|---|---|---|
-| Host isolation | Exact ports/proxy/volumes verified read-only first | VERIFIED for isolated fixtures; public route pending | P06-C release evidence | Implementer; owner for release decisions |
-| Privacy/legal | Contact, jurisdiction, provider terms, license and data notice owner review | DESIGNED / unverified | P06-C release blocker; not blanket compliance | Implementer; owner for release decisions |
-| Recovery | Off-host destination and tested restore/deletion replay | Local recovery VERIFIED; off-host authentication BLOCKED | T19 T22 | Implementer; owner for release decisions |
+| Host isolation | Exact ports/proxy/volumes verified read-only first | VERIFIED including public route | P06-C release evidence | Implementer; owner for release decisions |
+| Privacy/legal | Contact, jurisdiction, provider terms, license and data notice owner review | Deployment facts VERIFIED; no blanket legal certification | P06-C release blocker; not blanket compliance | Implementer; owner for release decisions |
+| Recovery | Off-host destination and tested restore/deletion replay | Local and actual off-host recovery VERIFIED | T19 T22 | Implementer; owner for release decisions |
 | Release authority | Explicit deployment instruction | AUTHORIZED 2026-10-20 | Owner requested deployment and then execution of this plan | Implementer; owner for release decisions |
 
 Privacy and legal lifecycle follows [security contract](../../docs/security.md); relevant controls must be verified in this plan and P06 before release. Payments, tracking, real gambling and emails: N/A, none in scope.
@@ -248,3 +248,21 @@ Audit verdict: ready; presentation-only changes preserve protocol, privacy and p
 Coordinator updates plan/index/changelog. Preserve historical evidence and compatibility identifiers. No slogan or new domain is introduced.
 
 Branding verification: 72 tests pass, 102 locale keys match, production build and bundle budget pass (92,578 gzip bytes). MCP confirms Fibotable in title/header/footer and functional entry text at 1440/390/360 widths; Portuguese creation reaches the connected table at 360 pixels with no overflow. An initial exact-text browser wait omitted the brand prefix; corrected locator confirmed connection. Cloudflare authentication is now available and the owner purchased **fibotable.com**; use that domain instead of the earlier candidate. DNS currently has no records. OVH region confirmation was requested; backup/provider and public-release gates still apply.
+
+
+### Provider configuration — 2026-10-21
+
+Owner domain **fibotable.com** verified in the authenticated Cloudflare account. Added a proxied apex A record to the existing OVH host. Issued a dedicated Origin CA certificate from a server-generated CSR (private key remains outside source), installed an isolated certificate configuration through Traefik's watched file provider, and enabled Full (strict). Origin SNI inspection confirms fibotable.com and its wildcard. Public HTTPS reaches the proxy and returns 404 as expected before the application route exists; this is TLS evidence, not a launch.
+
+Created dedicated private R2 bucket `fibotable-backups` (Eastern North America), with no public URL or custom domain. Created an object read/write account token scoped only to that bucket; installed external credential configuration and escrowed the encryption key off OVH. No provider credentials are in the repository. Existing sibling services remain running without restart. A fresh exact-source Linux image is being built because prior synthetic fixture images were no longer present on the host. Actual off-host restore, daily job, verified OVH region and application public-origin smoke remain pending; do not archive P06.
+
+
+### Launch verification — 2026-10-21
+
+Fibotable is live at https://fibotable.com from application source cfe300b. Immutable release image: `sha256:506c3ae520295324aa205c4477fe43acd73428e70c9eed7c92121426a78dea43`. CI run 39606538018 passed. OVH dashboard confirms Beauharnois (BHS), Canada, os-bhs6. Release build activates the public notice with that fact. Private R2 upload/download and authenticated restore passed for synthetic data and the actual production database. Production restore ciphertext: 57,376 bytes, SHA-256 `7eb38651d985dd5f0f4b625d4adf17f359b02f5cfaf1906fe5e0e41982cccf09`.
+
+Daily maintenance ran successfully twice against production, restarted only this app, and recorded offhost_verified. Cron is installed at 04:15 UTC, with seven-day scoped retention, external key escrow and seven-day maintenance-log rotation. Manual health/disk/backup-age monitoring remains the documented team-scale model; no automatic paging is claimed. Current service is healthy, zero unexpected restarts, 77 GiB disk available. Sibling application and proxy start times/restart counts are unchanged.
+
+Playwright MCP verified independent English desktop and Portuguese mobile identities, hidden values, shared reveal/mode, observer identification/reveal, host clear, browser reload and restored table after daily maintenance. The privacy page has no mobile overflow and shows verified hosting facts. Secure HttpOnly SameSite=Strict cookie and CSP confirmed. Cloudflare's default RUM attempted beacon injection; disabled it in this zone, waited for propagation and confirmed no external scripts on a fresh browser navigation. Initial browser locator failures (combined status label, repeated per-person statuses and server-confirmed switch state) were corrected; they were not app failures. The final optional repeat of observer-clear/socket-event capture was interrupted by MCP Transport closed; prior public round trips and baseline protocol/observer tests remain the evidence. No physical-device/screen-reader certification is claimed.
+
+Release gate reconciliation: application deployment and recovery checks pass for the requested personal team launch. Provider contract references are recorded in the privacy notice; no blanket legal compliance or new license grant is asserted. Important host maintenance finding: OVH labels the existing Ubuntu 25.04 installation end-of-life. A shared-host OS upgrade is outside this isolated release and must be scheduled separately. No shared OS upgrade was attempted.

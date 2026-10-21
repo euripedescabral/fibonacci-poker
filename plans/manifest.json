@@ -235,7 +235,7 @@
     },
     {
       "id": "P06",
-      "path": "plans/active/p06-ovh-release-and-recovery.md",
+      "path": "plans/done/p06-ovh-release-and-recovery.md",
       "depends": [
         "P05"
       ],

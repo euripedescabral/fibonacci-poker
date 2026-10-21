@@ -1,6 +1,6 @@
 # Privacy and use notice
 
-Release status: operator identified as Eurípedes Cabral. Private contact route: the operator's linked professional profile. Actual hosting region, off-host destination/provider retention and release activation remain unverified; the interface retains its unreleased notice until those facts are wired into the build. This is a deployment-specific data inventory, not a legal compliance certification.
+Release status: live at https://fibotable.com; operator identified as Eurípedes Cabral. Private contact route: the operator's linked professional profile. The production notice includes the verified OVH region and encrypted seven-day backup retention. This is a deployment-specific data inventory, not a legal compliance certification.
 
 ## English
 
@@ -10,7 +10,7 @@ Anyone with a table link can join, reveal or clear it; share links only with you
 
 Contact the operator privately to request your data or deletion. Do not publish cookies or table links in a public issue. The operator verifies your identity before providing an export or deleting it. Loss of a cookie requires private review; a display name alone does not establish ownership.
 
-Application hosting is on the owner's OVH instance; the verified region and backup provider must be specified before release. Intended use is the owner's adult work team. The owner must confirm the applicable processing basis and provider/transfer terms for that use. No promise of universal GDPR/LGPD compliance is made.
+Application hosting is on the owner's OVH instance in Beauharnois (BHS), Canada, os-bhs6; encrypted backups use private Cloudflare R2 in Eastern North America. Intended use is the owner's adult work team. The owner must confirm the applicable processing basis and provider/transfer terms for that use. No promise of universal GDPR/LGPD compliance is made.
 
 ## Português
 
@@ -20,4 +20,10 @@ Qualquer pessoa com o link da mesa pode entrar, revelar ou limpar as cartas; com
 
 Para solicitar seus dados ou a exclusão, fale com o responsável em particular. Não publique cookies ou links de mesas em uma issue pública. O responsável verifica sua identidade antes de exportar ou excluir dados. A perda do cookie exige análise privada; apenas o nome de exibição não comprova identidade.
 
-A aplicação será hospedada na instância OVH do responsável; a região verificada e o provedor de backup precisam ser informados antes da publicação. O uso inicial é pela equipe de trabalho adulta do responsável. A base de tratamento e os termos aplicáveis dos provedores e transferências devem ser confirmados para esse contexto. Este documento não promete conformidade universal com LGPD ou GDPR.
+A aplicação está hospedada na OVHcloud em Beauharnois (BHS), Canadá, os-bhs6; backups criptografados usam Cloudflare R2 privado no leste da América do Norte. O uso inicial é pela equipe de trabalho adulta do responsável. A base de tratamento e os termos aplicáveis dos provedores e transferências devem ser confirmados para esse contexto. Este documento não promete conformidade universal com LGPD ou GDPR.
+
+## Verified deployment facts
+
+Live at https://fibotable.com. Hosting / hospedagem: OVHcloud, Beauharnois (BHS), Canada, os-bhs6. Encrypted backups / backups criptografados: private Cloudflare R2, Eastern North America, seven-day database retention. Cloudflare provides DNS/TLS proxying; browser RUM is disabled. Initial audience remains the owner’s work team, with no ads, payments or gambling.
+
+Provider references checked on 2026-10-21: [OVHcloud Canada terms](https://www.ovhcloud.com/en-ca/terms-and-conditions/) and [Cloudflare DPA](https://www.cloudflare.com/cloudflare-customer-dpa/). These references describe provider terms; this project makes no blanket LGPD/GDPR compliance claim.

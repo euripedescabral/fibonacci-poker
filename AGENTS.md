@@ -10,6 +10,6 @@ Read `README.md`, `plans/WORKFLOW.md`, `plans/PLAN-FORMAT.md`, `plans/EXECUTION.
 - Browser navigation/testing uses Playwright MCP. Open user-facing artifacts in Arc. No AppleScript or custom browser drivers.
 - Public upload allowlist: this application repository only. Never include brain material, copied vault prompts, secrets, session receipts, absolute user paths or browser auth state in files or Git history.
 - `.archify/` is local-only evidence. Do not upload it by changing ignores. Use portable project docs for public architecture context.
-- P01–P05 runtime gates exist: run `npm run verify`, locale parity, build and bundle checks. P06 operations and isolated OVH gates are implemented; consult the active plan for load and public-launch status. The Python plan checker validates structure only.
+- P01–P05 runtime gates exist: run `npm run verify`, locale parity, build and bundle checks. P06 is deployed at fibotable.com; consult the completed plan and launch evidence for load, recovery and public verification. The Python plan checker validates structure only.
 - Version pins are recorded during P01 after compatibility checks; commit the npm lockfile. Do not assume an untested framework API exists.
 - Scope: English and Portuguese, fictional suits, Fibonacci, mode (not median), persistent tables, 20 active connections including observers, reconnect, 15-minute idle, sound once per round and reduced motion.

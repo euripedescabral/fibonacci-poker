@@ -1,3 +1,5 @@
+> Historical preflight; superseded for launch status by [launch evidence](launch-evidence.md).
+
 # OVH preflight — 2026-10-20
 
 Decision: isolated implementation/testing is allowed and verified; public release remains on hold for provider configuration. The owner explicitly authorized deployment, so another release-permission prompt is not required.

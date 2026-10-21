@@ -37,4 +37,4 @@ These are release blockers, not blockers to writing local code. There is no stak
 
 ## Operational fact reconciliation
 
-OVH resources, Docker/Traefik versions and the isolated network/proxy strategy have been inspected; see [OVH preflight](reviews/ovh-preflight.md). Domain/provider authentication, actual hosting region and an approved verified off-host destination remain unresolved. Deployment authority is already granted. No guessed Traefik labels, shared volume edits or other-project restarts are permitted.
+OVH resources, Docker/Traefik versions and the isolated network/proxy strategy have been inspected; see [OVH preflight](reviews/ovh-preflight.md). The owner’s fibotable.com domain, Beauharnois (BHS) hosting region and private R2 backup upload/download/restore are verified in the launch evidence. The existing host OS is end-of-life and needs separate maintenance. Deployment authority is already granted. No guessed Traefik labels, shared volume edits or other-project restarts are permitted.

@@ -1,6 +1,6 @@
 # Implementation plan index
 
-**P01–P05 complete and locally verified. P06 execution and deployment now authorized.** Runtime evidence is recorded in each completed plan and the UI acceptance report. Initial usage: one Scrum team, modest load.
+**P01–P06 complete. Fibotable is live at https://fibotable.com.** Runtime evidence is recorded in each completed plan and the UI acceptance report. Initial usage: one Scrum team, modest load.
 
 | Order | Plan | Status | Activation |
 |---|---|---|---|
@@ -9,7 +9,7 @@
 | P03 | [Durable tables, identity and atomic mutations](done/p03-durable-storage-and-identity.md) | Complete | P02 |
 | P04 | [Shared rooms, presence and recovery](done/p04-realtime-rooms-and-reconnection.md) | Complete | P03 |
 | P05 | [Poker table UI, localization and preferences](done/p05-table-ui-and-accessibility.md) | Complete | P04 |
-| P06 | [Team launch, OVH isolation and recovery](active/p06-ovh-release-and-recovery.md) | In progress | P05 + owner release scope |
+| P06 | [Team launch, OVH isolation and recovery](done/p06-ovh-release-and-recovery.md) | Complete | P05 + owner release scope |
 
 This index is the master coordinator; six KERNEL execution plans own the implementation. It is not a seventh overlapping plan. Execution is serial: P01 → P02 → P03 → P04 → P05 → P06.
 
@@ -24,6 +24,6 @@ This index is the master coordinator; six KERNEL execution plans own the impleme
 
 See lifecycle status above for the active plan. Dependent plans move from deferred to active after predecessor completion; update links and manifest together. Completed plans are archived only after their gates pass.
 
-## Release-only unresolved facts
+## Operations follow-up
 
-OVH resources/proxy isolation and deployment authority are verified. DNS/TLS for the owner’s new `fibotable.com` domain, verified hosting region, dedicated off-host backup/key escrow and final public-origin smoke remain release blockers. Existing no-license-grant policy is preserved. Consult release evidence for measured gates; do not invent live configuration.
+DNS/TLS, hosting region, encrypted private R2 recovery, daily backup job and public smoke are verified in [launch evidence](../docs/reviews/launch-evidence.md). The existing shared OVH host OS is end-of-life and requires separate maintenance. Monitoring is owner-operated; no automatic paging is configured. Physical-device/screen-reader testing remains unverified.
