@@ -26,4 +26,4 @@ See lifecycle status above for the active plan. Dependent plans move from deferr
 
 ## Release-only unresolved facts
 
-OVH resources/proxy isolation and deployment authority are verified. Public DNS/provider authentication, verified hosting region, dedicated off-host backup/key escrow and final public-origin smoke remain release blockers. Existing no-license-grant policy is preserved. Consult release evidence for measured gates; do not invent live configuration.
+OVH resources/proxy isolation and deployment authority are verified. DNS/TLS for the owner’s new `fibotable.com` domain, verified hosting region, dedicated off-host backup/key escrow and final public-origin smoke remain release blockers. Existing no-license-grant policy is preserved. Consult release evidence for measured gates; do not invent live configuration.

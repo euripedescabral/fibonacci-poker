@@ -170,7 +170,7 @@ export function App() {
         />
       )}
       <footer>
-        <span>{t("footer")}</span>
+        <span>{t("brand")}</span>
         <a href="/privacy">{t("privacy")}</a>
       </footer>
       <Settings

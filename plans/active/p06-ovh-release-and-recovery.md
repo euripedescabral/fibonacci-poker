@@ -232,3 +232,19 @@ The temporary test servers have no public route. Their synthetic recovery/load e
 P06-A and the isolated P06-B gates pass: 72 tests / 25 files, TypeScript/lint, build, 104-key locale parity, bundle budget, Compose, Linux Docker build, local/browser fault scenarios, OVH restart/rollback and separate-volume restore. The original 0.5-CPU soak failed at 508.9 ms p95. After reducing redundant snapshots, the 1-CPU/512-MiB soak completed 1800.015 seconds, 173 rounds and 19,030 successful ACKs with 172.54 ms p95 (326.89 ms maximum), no lost ACKs or room-isolation failures. Twenty disposal cycles retained only 282,128 extra heap bytes after warmup.
 
 P06-C tooling/notice preparation is implemented; provider authentication, actual hosting-region confirmation, off-host bucket/key escrow/job and public notice activation remain unresolved. P06-D has not run: no public launch or URL is claimed. Keep this plan active and use the handoff above. Source changes can land independently of provider configuration; do not describe that merge as a production release.
+
+
+### Owner branding amendment — 2026-10-21
+
+The owner selected **Fibotable**, with no slogan. Apply the public name consistently and remove promotional entry/footer copy in both locales. Domain selection remains with the owner; do not configure the previously proposed hostname. Existing repository slug, container/volume/router names, cookies and preference keys remain compatibility identifiers, not public branding. No data migration or provider change is part of this amendment.
+
+Audit verdict: ready; presentation-only changes preserve protocol, privacy and persistence boundaries. Execute serial bounded batches:
+
+| Batch | Files | Gate |
+|---|---|---|
+| Branding UI | `apps/web/index.html`, `apps/web/src/i18n/en.ts`, `apps/web/src/i18n/pt.ts`, `apps/web/src/ui/entry.tsx`, `apps/web/src/app.tsx`, `apps/server/src/main.ts` | `npm run verify && npm run check:i18n && npm run build && npm run check:bundle` |
+| Branding metadata/docs | `package.json`, `package-lock.json`, `README.md`, `AGENTS.md`, `docs/privacy-notice.md`, `docs/ui.md`, `tests/browser/scenarios.md` | `npm run verify` plus desktop/mobile browser inspection |
+
+Coordinator updates plan/index/changelog. Preserve historical evidence and compatibility identifiers. No slogan or new domain is introduced.
+
+Branding verification: 72 tests pass, 102 locale keys match, production build and bundle budget pass (92,578 gzip bytes). MCP confirms Fibotable in title/header/footer and functional entry text at 1440/390/360 widths; Portuguese creation reaches the connected table at 360 pixels with no overflow. An initial exact-text browser wait omitted the brand prefix; corrected locator confirmed connection. Cloudflare authentication is now available and the owner purchased **fibotable.com**; use that domain instead of the earlier candidate. DNS currently has no records. OVH region confirmation was requested; backup/provider and public-release gates still apply.

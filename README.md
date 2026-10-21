@@ -1,8 +1,8 @@
-# Fibonacci Poker
+# Fibotable
 
 Planning poker with persistent shared tables, Fibonacci cards and original fictional suits. Vote privately, reveal together and see the **mode: the most frequent value**, including ties.
 
-**P01–P05 implemented; P06 operational tooling and isolated OVH verification are in progress.** Public deployment still requires DNS/provider authentication, a verified off-host backup job and final release facts. Initial audience: one Scrum team.
+**P01–P05 implemented; P06 operational tooling and isolated OVH verification are in progress.** Public deployment still requires the new domain configuration, a verified off-host backup job and final release facts. Initial audience: one Scrum team.
 
 ## Run locally
 
@@ -49,3 +49,7 @@ Verification includes domain, transactional storage, real SDK room integration, 
 - [Original planning review](docs/reviews/plan-review.md)
 
 This personal public repository does not imply a software license grant. The current no-license-grant policy is unchanged. Public domain, verified host region, provider configuration and recovery operations remain explicit P06 release checks.
+
+## Brand
+
+The product name is **Fibotable**, with no slogan. The existing repository slug and deployment/storage identifiers remain stable for compatibility; they are not the public brand.

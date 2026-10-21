@@ -1,4 +1,4 @@
-# Fibonacci Poker — project contract
+# Fibotable — project contract
 
 Read `README.md`, `plans/WORKFLOW.md`, `plans/PLAN-FORMAT.md`, `plans/EXECUTION.md` and the selected plan before editing. Product and engineering contracts in `docs/` are authoritative; old local diagrams are exploratory snapshots.
 

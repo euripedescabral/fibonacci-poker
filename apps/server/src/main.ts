@@ -110,7 +110,7 @@ if (
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
   const app = await start();
-  console.info("Fibonacci Poker listening");
+  console.info("Fibotable listening");
   for (const signal of ["SIGTERM", "SIGINT"] as const)
     process.once(signal, () => {
       void app.close().then(() => process.exit(0));

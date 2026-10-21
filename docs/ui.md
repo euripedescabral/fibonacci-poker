@@ -33,3 +33,7 @@ Portuguese dictionary `pt` and English `en`; identical keys checked by a script.
 Settings dialog: semantic dialog, labeled heading, focus trap while open, Escape closes, focus returns to opener. Card content is readable text; suit SVG is decorative/aria-hidden. Respect prefers-reduced-motion and user's setting. Motion durations: card slide 180 ms, flip 220 ms, feedback 120 ms; all become zero when reduced. No flashes, loops, parallax, confetti or sound on hover.
 
 Acceptance includes keyboard-only operation, screen-reader meaningful names/result, 200% zoom, long/duplicate Unicode names, error announcements, mobile overflow, contrast and touch targets. Browser acceptance uses Playwright MCP, with separate authenticated contexts for distinct people; never reuse another session's browser profile.
+
+## Brand
+
+The public name is **Fibotable** in both locales, with no slogan. Use functional headings and instructions. Preserve the original fictional suit symbol and selectable suits. Deployment/storage identifiers are compatibility details and are not displayed as branding.

@@ -16,7 +16,6 @@ export function Entry({
   return (
     <main class="entry">
       <div class="entry-copy">
-        <p class="eyebrow">{t("eyebrow")}</p>
         <h1>{t(joining ? "inviteTitle" : "headline")}</h1>
         <p class="entry-intro">{t(joining ? "inviteIntro" : "intro")}</p>
         <form
