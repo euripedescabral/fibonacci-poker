@@ -29,3 +29,7 @@ Reviewed on 2026-10-21 against the deployed 42b81e8 frontend. This is a targeted
 ## Sources
 
 [Chrome team's animation performance guidance](https://web.dev/articles/animations-and-performance) supports avoiding layout/paint properties and excessive layer promotion. [W3C status-message guidance](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA22.html) supports polite atomic status regions. Existing product CSS and Preact contracts take precedence over framework-specific recommendations from other stacks.
+
+## Deployment
+
+Source `7363628` is live as `fibotable:7363628-release`, immutable image `sha256:8af6fa3ea36065ea413e01fee2f2dce7dd759b5a304ba4d409fbf7f5726ec24c`. Container health, public readiness and bootstrap/application assets passed. The 25-command three-session smoke also passed over production HTTPS/WSS after deployment. Prior rollback image: `fibotable:42b81e8-release`. Only the application container was recreated, with the existing persistent volume.

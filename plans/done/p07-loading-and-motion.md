@@ -1,7 +1,7 @@
 ---
 id: P07
 name: Loading lifecycle and lightweight motion
-status: in-progress
+status: complete
 dependencies: [P06]
 activation: Owner requested frontend loading and animation fixes
 priority: P1
@@ -63,4 +63,4 @@ Coordinator maintains this plan, manifest, checker/index, changelog and release 
 Bootstrap CSS loads independently of application JS. No fake progress or minimum loading delay. Dynamic app import leaves a localized recovery shell on failure. Only real pending work gets a loading label. Connection deadline invalidates stale generations; late rooms close. Small transform/opacity transitions, no animated paint properties or global layer promotion.
 
 ## Layer 5 — Meta
-Baseline: 42b81e8, 75 tests. Audit findings verified against source. No browser visual/FPS claim while Playwright MCP reports Transport closed; use rendered-component, timer, build/HTTP proof and leave explicit browser replay. Production deployment is authorized by the ongoing owner request. Rollback: fibotable:42b81e8-release, same persistent volume. Implementation and evidence pending.
+Baseline: 42b81e8, 75 tests. Audit findings verified against source. No browser visual/FPS claim while Playwright MCP reports Transport closed; use rendered-component, timer, build/HTTP proof and leave explicit browser replay. Production deployment is authorized by the ongoing owner request. Rollback: fibotable:42b81e8-release, same persistent volume. Implementation and deterministic gates complete. Deployed source 7363628 as fibotable:7363628-release; container healthy, public bootstrap/application assets and readiness passed, followed by 25 successful production SDK commands. Visual/physical-device/performance-trace limitations remain explicit in the audit.

@@ -30,4 +30,4 @@ DNS/TLS, hosting region, encrypted private R2 recovery, daily backup job and pub
 
 ## Frontend follow-up
 
-[P07 — Loading and motion](active/p07-loading-and-motion.md) is in progress, authorized by the owner after launch.
+[P07 — Loading and motion](done/p07-loading-and-motion.md) is implemented and deployed. See the [audit and verification limits](../docs/reviews/loading-motion-audit.md).

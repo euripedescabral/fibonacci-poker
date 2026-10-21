@@ -339,7 +339,7 @@
     },
     {
       "id": "P07",
-      "path": "plans/active/p07-loading-and-motion.md",
+      "path": "plans/done/p07-loading-and-motion.md",
       "depends": [
         "P06"
       ],

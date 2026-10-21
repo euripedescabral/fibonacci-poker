@@ -33,3 +33,5 @@
 ## 2026-10-21 — P07 frontend loading and motion
 
 Owner requested loading correction and frontend/motion review. P07 adds explicit startup/restore/error states, progressive bootstrap, bounded connection synchronization and reduced-motion/paint-cost fixes. 89 tests, types, lint, locale parity, build, bundle and local HTTP/25-command SDK smoke passed. Visual replay remains blocked by Playwright transport; no measured FPS/INP claim. See the [audit](../docs/reviews/loading-motion-audit.md).
+
+P07 deployed from 7363628; health, published assets and all 25 production protocol commands passed. Plan archived with browser visual/trace limitations explicitly retained.
