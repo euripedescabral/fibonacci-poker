@@ -1,4 +1,5 @@
 export const pt = {
+  listAnd: "e",
   privacyLicenses: "Licenças de terceiros",
   privacyOperator: "Responsável",
   privacyContact: "Fale com o responsável em particular",

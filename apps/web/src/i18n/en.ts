@@ -1,4 +1,5 @@
 export const en = {
+  listAnd: "and",
   privacyLicenses: "Third-party licenses",
   privacyOperator: "Operator",
   privacyContact: "Contact the operator privately",

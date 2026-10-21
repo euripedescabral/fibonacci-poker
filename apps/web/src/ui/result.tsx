@@ -12,9 +12,11 @@ export function Result({ state, t }: { state: PublicState; t: Translate }) {
       {result?.kind === "mode" ? (
         <>
           <div class="result-values">
-            {result.values.map((v) => (
-              <strong key={v}>{v}</strong>
-            ))}
+            <strong>
+              {result.values.length > 1
+                ? `${result.values.slice(0, -1).join(", ")} ${t("listAnd")} ${result.values.at(-1)}`
+                : result.values[0]}
+            </strong>
           </div>
           <p>
             {t(result.count === 1 ? "frequencyOne" : "frequency", {

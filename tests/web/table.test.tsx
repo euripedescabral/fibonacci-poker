@@ -122,17 +122,20 @@ it("observers can reveal but have no voting deck; disconnected controls disable"
     ).disabled,
   ).toBe(true);
 });
-it("shows tied numerical modes in the requested locale", () => {
+it.each([
+  { locale: "pt" as const, values: [5], text: "5" },
+  { locale: "pt" as const, values: [5, 8], text: "5 e 8" },
+  { locale: "pt" as const, values: [3, 5, 8], text: "3, 5 e 8" },
+  { locale: "en" as const, values: [3, 5, 8], text: "3, 5 and 8" },
+])("formats mode values as $text in $locale", ({ locale, values, text }) => {
   const view = fixture();
   view.state!.phase = "revealed";
   view.state!.revealed = {
     cards: [],
-    result: { kind: "mode", values: [5, 8], count: 2 },
+    result: { kind: "mode", values, count: 2 },
   };
-  render(<Table view={view} onAction={() => undefined} t={translator("pt")} />);
-  expect(screen.getByText("Empate entre os valores")).toBeTruthy();
-  expect(screen.getByText("5")).toBeTruthy();
-  expect(screen.getByText("8")).toBeTruthy();
+  render(<Table view={view} onAction={() => undefined} t={translator(locale)} />);
+  expect(document.querySelector(".result-values")?.textContent).toBe(text);
 });
 it("settings localize motion without nausea wording", () => {
   HTMLDialogElement.prototype.close = vi.fn();
