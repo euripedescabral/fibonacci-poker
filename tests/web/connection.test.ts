@@ -149,3 +149,40 @@ it("drops an unacknowledged vote on disconnect and reconciles a different round"
     vi.resetModules();
   }
 });
+
+it.each(["handshake", "sync"])("bounds a stalled %s and ignores late synchronization", async (stage) => {
+  vi.resetModules();
+  vi.useFakeTimers();
+  const messages = new Map<string, (value: unknown) => void>();
+  const room = {
+    leave: vi.fn(async () => {}), send: vi.fn(),
+    onMessage: (type: string, fn: (value: unknown) => void) => messages.set(type, fn),
+    onStateChange: vi.fn(), onError: vi.fn(), onLeave: vi.fn(),
+  };
+  let resolve!: (value: typeof room) => void;
+  const stalled = new Promise<typeof room>((r) => { resolve = r; });
+  vi.doMock("@colyseus/sdk", () => ({ Client: class {
+    consumeSeatReservation() { return stage === "handshake" ? stalled : Promise.resolve(room); }
+  } }));
+  vi.stubGlobal("location", { origin: "http://localhost:3000", port: "3000" });
+  vi.stubGlobal("fetch", vi.fn(async () => new Response(JSON.stringify({ reservation: {} }))));
+  const { LiveClient } = await import("../../apps/web/src/connection/client.js");
+  const client = new LiveClient("table", "Fixture", () => {}, () => {});
+  try {
+    const connection = client.connect();
+    await vi.advanceTimersByTimeAsync(15000);
+    expect(client.view.status).toBe("reconnecting");
+    expect(client.view.error).toBe("STORAGE_UNAVAILABLE");
+    if (stage === "handshake") resolve(room);
+    await connection;
+    expect(room.leave).toHaveBeenCalledOnce();
+    messages.get("sync")?.({ state: { revision: 1 }, own: {} });
+    expect(client.view.state).toBeNull();
+    client.stop();
+    await vi.runAllTimersAsync();
+    expect(fetch).toHaveBeenCalledTimes(1);
+  } finally {
+    client.stop(); vi.useRealTimers(); vi.unstubAllGlobals();
+    vi.doUnmock("@colyseus/sdk"); vi.resetModules();
+  }
+});

@@ -7,9 +7,11 @@ export interface Preferences {
 export function readPreferences(): Preferences {
   let saved: Partial<Preferences> = {};
   try {
-    saved = JSON.parse(
+    const parsed: unknown = JSON.parse(
       localStorage.getItem("fp:preferences") ?? "{}",
-    ) as Partial<Preferences>;
+    );
+    if (parsed && typeof parsed === "object" && !Array.isArray(parsed))
+      saved = parsed as Partial<Preferences>;
   } catch {
     /* Private browsing still supports session-only settings. */
   }

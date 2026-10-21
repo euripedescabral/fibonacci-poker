@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "preact/hooks";
+import "./styles/app.css";
+import { useEffect, useLayoutEffect, useRef, useState } from "preact/hooks";
 import {
   ERROR_CODES,
   type ErrorCode,
@@ -18,10 +19,14 @@ import { Table } from "./ui/table.js";
 import { Settings } from "./ui/settings.js";
 import { Privacy } from "./ui/privacy.js";
 import { SuitIcon } from "./ui/suits.js";
+import { Loading } from "./ui/loading.js";
 export function App() {
   const [preferences, setPreferences] = useState(readPreferences),
     [settings, setSettings] = useState(false),
-    [busy, setBusy] = useState(true),
+    [busy, setBusy] = useState(false),
+    [boot, setBoot] = useState<"loading" | "ready" | "error">("loading"),
+    [bootAttempt, setBootAttempt] = useState(0),
+    [restoring, setRestoring] = useState(false),
     [error, setError] = useState<ErrorCode | null>(null),
     [audioBlocked, setAudioBlocked] = useState(false),
     [view, setView] = useState<View | null>(null);
@@ -39,40 +44,48 @@ export function App() {
     );
     void client.current.connect();
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.lang = preferences.locale;
-    savePreferences(preferences);
     return applyMotion(preferences.reduceMotion);
-  }, [preferences]);
+  }, [preferences.locale, preferences.reduceMotion]);
+  useEffect(() => savePreferences(preferences), [preferences]);
   useEffect(() => {
     let alive = true;
     if (!privacy)
       void (async () => {
+        setBoot("loading");
+        setError(null);
         try {
           await api("session", {});
+          if (!alive) return;
           if (tableId) {
             const meta = await api("tables/" + tableId);
-            if (alive && meta.member)
+            if (alive && meta.member) {
+              setRestoring(true);
               join(tableId, (meta.member as { name: string }).name);
+            }
           }
+          if (alive) setBoot("ready");
         } catch (e) {
-          if (alive)
+          if (alive) {
+            setBoot("error");
             setError(
               ERROR_CODES.find(
                 (c) => c === (e instanceof Error ? e.message : ""),
               ) ?? "STORAGE_UNAVAILABLE",
             );
-        } finally {
-          if (alive) setBusy(false);
+          }
         }
       })();
-    else setBusy(false);
+    else setBoot("ready");
+    return () => { alive = false; };
+  }, [bootAttempt]);
+  useEffect(() => {
     const unwatch = watchActivity(() => {
       client.current?.activity();
       if (prefs.current.sound) void audio.current.unlock();
     });
     return () => {
-      alive = false;
       unwatch();
       client.current?.stop();
     };
@@ -83,6 +96,7 @@ export function App() {
       void audio.current.unlock().then((ok) => setAudioBlocked(!ok));
   };
   const submit = async (name: string) => {
+    if (busy || view?.status === "connecting" || view?.status === "reconnecting") return;
     setBusy(true);
     setError(null);
     try {
@@ -102,6 +116,21 @@ export function App() {
     }
   };
   const failure = view?.error ?? error;
+  const loadingScreen = !privacy && (boot !== "ready" || (restoring && !view?.own));
+  const connecting = view?.status === "connecting" || view?.status === "reconnecting";
+  const loadingMessage = boot === "loading"
+    ? t(tableId ? "loading" : "preparing")
+    : connecting ? t(view.status)
+      : failure ? t(failure) : t(view?.status ?? "loading");
+  const retryLoading = () => {
+    if (failure === "CLIENT_OUTDATED" || failure === "SESSION_EXPIRED") {
+      location.reload();
+    } else if (boot === "error") {
+      setBootAttempt((attempt) => attempt + 1);
+    } else {
+      client.current?.retry();
+    }
+  };
   return (
     <>
       <header class="site-header">
@@ -118,7 +147,7 @@ export function App() {
           <span>{t("settings")}</span>
         </button>
       </header>
-      {failure && (
+      {failure && !loadingScreen && (
         <div class="error-banner" role="alert">
           {t(failure)}
           {failure === "CLIENT_OUTDATED" && (
@@ -131,7 +160,7 @@ export function App() {
           {t("audioBlocked")}
         </div>
       )}
-      {view && view.status !== "live" && (
+      {view?.state && view.status !== "live" && (
         <div class="connection-banner" role="status">
           <span>
             {t(view.status)}
@@ -149,6 +178,13 @@ export function App() {
       )}
       {privacy ? (
         <Privacy t={t} />
+      ) : loadingScreen ? (
+        <Loading
+          pending={boot === "loading" || (boot === "ready" && !!connecting)}
+          message={loadingMessage}
+          onRetry={failure === "TABLE_NOT_FOUND" ? undefined : retryLoading}
+          t={t}
+        />
       ) : view?.state && view.own ? (
         <Table
           view={view}

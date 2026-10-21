@@ -90,8 +90,7 @@ input:not([type="checkbox"]):not([type="radio"]),
 select {
   background: #12201c;
   border: 1px solid #587365;
-  color: var(--ink);
-  color: var(--muted);
+  color: #f3f1e9;
   border-radius: 8px;
   padding: 14px;
   min-width: 0;
@@ -162,7 +161,6 @@ input::placeholder {
   left: 50%;
   top: 40%;
   transform-origin: bottom center;
-  filter: drop-shadow(0 18px 18px #0004);
 }
 .art-card.a {
   transform: translate(-110%, -50%) rotate(-19deg);
@@ -207,7 +205,6 @@ input::placeholder {
   background: #f2efdf;
   color: #244534;
   box-shadow: 0 4px 8px #0003;
-  animation: card-in 180ms ease-out;
 }
 .playing-card svg {
   width: 18px;
@@ -495,9 +492,7 @@ input[type="checkbox"]:checked:after {
   justify-content: center;
   gap: 8px;
   box-shadow: 0 3px 0 #0003;
-  transition:
-    transform 180ms,
-    background 120ms;
+  transition: transform 160ms ease-out;
 }
 .deck-card span {
   font-size: 22px;
@@ -508,9 +503,11 @@ input[type="checkbox"]:checked:after {
   height: 17px;
   opacity: 0.75;
 }
-.deck-card:hover:not(:disabled) {
-  transform: translateY(-6px);
-  background: #fffdf0;
+@media (hover: hover) and (pointer: fine) {
+  .deck-card:hover:not(:disabled):not(.selected) {
+    transform: translateY(-4px);
+    background: #fffdf0;
+  }
 }
 .deck-card.selected {
   background: var(--mint);
@@ -542,7 +539,8 @@ input[type="checkbox"]:checked:after {
   margin-bottom: 8px;
 }
 .result-values strong {
-  font-size: 44px;
+  font-size: clamp(28px, 5vw, 44px);
+  overflow-wrap: anywhere;
   font-weight: 500;
   color: var(--mint);
   line-height: 1.1;
@@ -575,7 +573,6 @@ footer a {
 }
 .settings::backdrop {
   background: #06120dd9;
-  backdrop-filter: blur(6px);
 }
 .dialog-heading {
   display: flex;
@@ -729,6 +726,12 @@ footer a {
 }
 .privacy-page .notice {
   color: #f5d8b6;
+}
+.seat-card .playing-card { animation: card-in 160ms ease-out; }
+.result { animation: result-in 160ms ease-out; }
+@keyframes result-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 @keyframes card-in {
   from {

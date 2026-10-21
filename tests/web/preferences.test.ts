@@ -73,3 +73,29 @@ it("plays completion once, never replays muted events, and defaults sound on", a
   expect(start).toHaveBeenCalledTimes(1);
   vi.unstubAllGlobals();
 });
+
+it.each(["null", "[]", "42", '"pt"', "{broken"])("recovers from malformed stored preferences: %s", (stored) => {
+  vi.stubGlobal("navigator", { languages: ["pt-BR"] });
+  vi.stubGlobal("localStorage", { getItem: () => stored });
+  try { expect(readPreferences()).toEqual({ locale: "pt", sound: true, reduceMotion: false }); }
+  finally { vi.unstubAllGlobals(); }
+});
+
+it("combines OS and explicit motion preferences and releases its listener", async () => {
+  const { applyMotion } = await import("../../apps/web/src/preferences/motion.js");
+  const dataset: Record<string, string> = {};
+  let changed = () => {};
+  const media = { matches: true, addEventListener: vi.fn((_event, fn) => { changed = fn; }), removeEventListener: vi.fn() };
+  vi.stubGlobal("document", { documentElement: { dataset } });
+  vi.stubGlobal("matchMedia", () => media);
+  try {
+    const stop = applyMotion(false);
+    expect(dataset.reducedMotion).toBe("true");
+    media.matches = false; changed();
+    expect(dataset.reducedMotion).toBe("false");
+    stop(); expect(media.removeEventListener).toHaveBeenCalledOnce();
+    const stopExplicit = applyMotion(true);
+    changed(); expect(dataset.reducedMotion).toBe("true");
+    stopExplicit();
+  } finally { vi.unstubAllGlobals(); }
+});

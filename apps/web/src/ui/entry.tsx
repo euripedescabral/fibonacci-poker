@@ -18,18 +18,18 @@ export function Entry({
       <div class="entry-copy">
         <h1>{t(joining ? "inviteTitle" : "headline")}</h1>
         <p class="entry-intro">{t(joining ? "inviteIntro" : "intro")}</p>
-        <form
+        <form aria-busy={busy}
           onSubmit={(e) => {
             e.preventDefault();
-            onSubmit(name);
+            if (!busy && name.trim()) onSubmit(name);
           }}
         >
           <label for="display-name">{t("name")}</label>
           <div class="entry-form">
             <input
               id="display-name"
-              autoFocus
               autoComplete="nickname"
+              disabled={busy}
               placeholder={t("namePlaceholder")}
               value={name}
               maxLength={64}
@@ -46,7 +46,7 @@ export function Entry({
                     ? "join"
                     : "create",
               )}
-              <span aria-hidden="true">↗</span>
+              {!busy && <span aria-hidden="true">↗</span>}
             </button>
           </div>
         </form>

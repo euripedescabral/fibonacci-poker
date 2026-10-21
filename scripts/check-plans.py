@@ -56,7 +56,10 @@ for r in m['requirements']:
     if r not in product or r not in acceptance: errors.append('Missing coverage '+r)
 for t in m['acceptance']:
     if '| '+t+' |' not in acceptance: errors.append('Missing case '+t)
-if len(seen)!=6: errors.append('Expected six execution plans')
+if not seen: errors.append('Expected execution plans')
+registered = {p['path'] for p in m['plans']}
+actual = {str(p.relative_to(root)) for folder in ('active', 'deferred', 'done') for p in (root/'plans'/folder).glob('*.md')}
+if registered != actual: errors.append('Plan manifest does not match lifecycle inventory')
 if errors:
     print('\n'.join('FAIL: '+e for e in errors)); sys.exit(1)
 print(f'PASS: {len(seen)} KERNEL plans, {len(files)} Markdown files; links, dependencies, phase inventories and requirement coverage.')

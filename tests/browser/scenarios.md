@@ -17,3 +17,12 @@ Use Playwright MCP against the built local server. Use synthetic names and separ
 ## P06 idle replay with real browser input
 
 Build the app, then run `node tests/browser/idle-fixture.mjs`. Through Playwright MCP open `http://127.0.0.1:3111`, create a synthetic table and choose 5. Wait for its confirmed pressed state. Type `idle` into the fixture process stdin; its server clock advances 900001 ms. Wait for the `Resume` button and disabled hand. Bring the page to front: it must remain paused. Press ArrowRight through Playwright keyboard input; wait for `Fibotable / Table connected`, then assert `Choose 5` is pressed and enabled. This validates a real trusted input event, not synthetic DOM event dispatch. Stop the fixture afterward; all its data is in memory.
+
+## P07 loading and motion replay
+
+- Throttle initial JS and session/metadata responses independently. The branded shell must keep its background/layout; initialization must not say Creating. With JS blocked, the bilingual reload recovery remains accessible.
+- Block only the dynamic application chunk: bootstrap must localize the shell, show a recoverable failure and stop the pending indication. Restore the chunk and reload.
+- Open an existing member link: no editable name form appears between metadata and synchronized table. Drop the connection after live state: the table stays visible with disabled controls.
+- Fail session initialization, retry, and submit a name. Fail table creation: retain the typed name. Repeated submit must not create another request while pending.
+- At 360×800, 390×844, 768×1024, 1440×900 and 568×320, inspect loading, long errors and tied-mode lists for overflow. Mobile entry must not force the keyboard open.
+- OS reduced motion and saved in-app reduction disable entry feedback before the first app paint. Loading uses at most three small transform/opacity pulses; touch devices have no hover lift. Verify CPU-throttled traces before claiming measured frame-rate/INP improvements.

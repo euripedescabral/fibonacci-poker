@@ -54,6 +54,7 @@ export class LiveClient {
   private generation = 0;
   private attempts = 0;
   private timer: ReturnType<typeof setTimeout> | undefined;
+  private connectTimer: ReturnType<typeof setTimeout> | undefined;
   private pendingTimer: ReturnType<typeof setTimeout> | undefined;
   private pendingId: string | null = null;
   constructor(
@@ -70,6 +71,20 @@ export class LiveClient {
     const generation = ++this.generation;
     this.stopped = false;
     clearTimeout(this.timer);
+    clearTimeout(this.connectTimer);
+    const oldRoom = this.room;
+    this.room = null;
+    void oldRoom?.leave();
+    // Bound HTTP + socket handshake + first private synchronization together.
+    this.connectTimer = setTimeout(() => {
+      if (this.stopped || generation !== this.generation) return;
+      this.generation++;
+      const room = this.room;
+      this.room = null;
+      void room?.leave();
+      this.emit({ error: "STORAGE_UNAVAILABLE", status: "disconnected" });
+      this.schedule();
+    }, 15000);
     this.emit({
       status: this.attempts ? "reconnecting" : "connecting",
       error: null,
@@ -79,6 +94,7 @@ export class LiveClient {
         name: this.name,
         schemaVersion: 1,
       });
+      if (this.stopped || generation !== this.generation) return;
       const endpoint =
         location.origin + (location.port === "5173" ? "/colyseus" : "");
       const client = new Client(endpoint);
@@ -98,6 +114,7 @@ export class LiveClient {
             !this.view.state ||
             message.state.revision >= this.view.state.revision
           ) {
+            clearTimeout(this.connectTimer);
             this.attempts = 0;
             this.emit({
               state: message.state,
@@ -117,7 +134,7 @@ export class LiveClient {
         if (generation === this.generation) this.complete(event.eventId);
       });
       room.onMessage("ack", (reply: Reply) => {
-        if (reply.commandId !== this.pendingId) return;
+        if (generation !== this.generation || reply.commandId !== this.pendingId) return;
         clearTimeout(this.pendingTimer);
         this.pendingId = null;
         this.emit({ pending: false, error: reply.ok ? null : reply.code });
@@ -129,6 +146,7 @@ export class LiveClient {
       room.onLeave((code) => {
         if (this.stopped || generation !== this.generation) return;
         this.room = null;
+        clearTimeout(this.connectTimer);
         clearTimeout(this.pendingTimer);
         this.pendingId = null;
         this.emit({
@@ -145,6 +163,7 @@ export class LiveClient {
       room.send("sync");
     } catch (error) {
       if (this.stopped || generation !== this.generation) return;
+      clearTimeout(this.connectTimer);
       const message = error instanceof Error ? error.message : "";
       const code =
         ERROR_CODES.find((c) => c === message) ?? "STORAGE_UNAVAILABLE";
@@ -214,6 +233,7 @@ export class LiveClient {
     this.generation++;
     clearTimeout(this.timer);
     clearTimeout(this.pendingTimer);
+    clearTimeout(this.connectTimer);
     void this.room?.leave();
     this.room = null;
   }

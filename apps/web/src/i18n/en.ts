@@ -6,6 +6,8 @@ export const en = {
   privacyRegion: "Hosting region",
   privacyBackup: "Encrypted backups are retained for up to 7 days. Expired identities are removed after 365 days without renewing this browser session. Request a copy or deletion through the operator; do not publish cookies or table links in public messages.",
 
+  retryLoad: "Try again",
+  preparing: "Getting Fibotable ready…",
   loading: "Loading your table…",
   loadFailure: "If the table does not open, reload the page.",
   frequencyOne: "1 vote per value",

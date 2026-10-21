@@ -336,6 +336,43 @@
           "gate": "npm run test:ops && npm run verify"
         }
       ]
+    },
+    {
+      "id": "P07",
+      "path": "plans/active/p07-loading-and-motion.md",
+      "depends": [
+        "P06"
+      ],
+      "phases": [
+        {
+          "id": "P07.1",
+          "files": [
+            "apps/web/src/app.tsx",
+            "apps/web/src/main.tsx",
+            "apps/web/src/ui/loading.tsx",
+            "apps/web/src/ui/entry.tsx",
+            "apps/web/src/styles/boot.css",
+            "apps/web/index.html",
+            "apps/web/vite.config.ts",
+            "apps/web/src/i18n/en.ts",
+            "apps/web/src/i18n/pt.ts",
+            "tests/web/loading.test.tsx"
+          ],
+          "gate": "npm run verify && npm run check:i18n && npm run build && npm run check:bundle"
+        },
+        {
+          "id": "P07.2",
+          "files": [
+            "apps/web/src/styles/app.css",
+            "apps/web/src/preferences/store.ts",
+            "apps/web/src/connection/client.ts",
+            "tests/web/connection.test.ts",
+            "tests/web/preferences.test.ts",
+            "tests/browser/scenarios.md"
+          ],
+          "gate": "npm run verify && npm run check:i18n && npm run build && npm run check:bundle"
+        }
+      ]
     }
   ],
   "requirements": [

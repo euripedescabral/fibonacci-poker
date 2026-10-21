@@ -11,7 +11,7 @@
 | P05 | [Poker table UI, localization and preferences](done/p05-table-ui-and-accessibility.md) | Complete | P04 |
 | P06 | [Team launch, OVH isolation and recovery](done/p06-ovh-release-and-recovery.md) | Complete | P05 + owner release scope |
 
-This index is the master coordinator; six KERNEL execution plans own the implementation. It is not a seventh overlapping plan. Execution is serial: P01 → P02 → P03 → P04 → P05 → P06.
+This index is the master coordinator; KERNEL execution plans own the implementation. Execution is serial: P01 → P02 → P03 → P04 → P05 → P06.
 
 - [Product requirements](../docs/product.md)
 - [Module architecture](../docs/architecture.md)
@@ -27,3 +27,7 @@ See lifecycle status above for the active plan. Dependent plans move from deferr
 ## Operations follow-up
 
 DNS/TLS, hosting region, encrypted private R2 recovery, daily backup job and public smoke are verified in [launch evidence](../docs/reviews/launch-evidence.md). The existing shared OVH host OS is end-of-life and requires separate maintenance. Monitoring is owner-operated; no automatic paging is configured. Physical-device/screen-reader testing remains unverified.
+
+## Frontend follow-up
+
+[P07 — Loading and motion](active/p07-loading-and-motion.md) is in progress, authorized by the owner after launch.
