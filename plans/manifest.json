@@ -373,6 +373,48 @@
           "gate": "npm run verify && npm run check:i18n && npm run build && npm run check:bundle"
         }
       ]
+    },
+    {
+      "id": "P08",
+      "path": "plans/done/p08-editable-revealed-votes.md",
+      "depends": [
+        "P07"
+      ],
+      "phases": [
+        {
+          "id": "P08-A",
+          "files": [
+            "packages/contracts/src/commands.ts",
+            "packages/domain/src/round.ts",
+            "tests/domain/round.test.ts",
+            "tests/realtime/races.test.ts",
+            "tests/realtime/visibility.test.ts",
+            "tests/storage/recovery.test.ts"
+          ],
+          "gate": "npm run test:domain && npm run test:storage && npm run test:realtime"
+        },
+        {
+          "id": "P08-B",
+          "files": [
+            "apps/web/src/ui/table.tsx",
+            "apps/web/src/i18n/en.ts",
+            "apps/web/src/i18n/pt.ts",
+            "tests/web/table.test.tsx"
+          ],
+          "gate": "npm run test:web && npm run check:i18n"
+        },
+        {
+          "id": "P08-C",
+          "files": [
+            "docs/product.md",
+            "docs/protocol.md",
+            "docs/ui.md",
+            "docs/acceptance.md",
+            "tests/browser/scenarios.md"
+          ],
+          "gate": "npm run verify && npm run check:i18n && npm run build && npm run check:bundle"
+        }
+      ]
     }
   ],
   "requirements": [

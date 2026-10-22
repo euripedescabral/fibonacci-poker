@@ -62,7 +62,7 @@ describe("round contract", () => {
     expect(nameSchema.safeParse("\n").success).toBe(false);
     expect(nameSchema.parse("  Ána ")).toBe("Ána");
   });
-  it("keeps original state untouched, permits observer reveal and freezes result", () => {
+  it("keeps original state untouched, preserves revealed cards on mode changes and permits observer reveal", () => {
     const original = room();
     let s = act(original, "a", { type: "vote", payload: { value: 5 } });
     expect(original.votes).toEqual({});
@@ -91,7 +91,7 @@ describe("round contract", () => {
       "STALE_ROUND",
     );
   });
-  it("rejects empty reveal, votes after reveal, and offline actions", () => {
+  it("rejects empty reveal and offline actions", () => {
     let s = room();
     expect(() => act(s, "a", { type: "reveal", payload: {} })).toThrow(
       "NO_VOTES",
@@ -99,9 +99,8 @@ describe("round contract", () => {
     s = act(s, "a", { type: "vote", payload: { value: "?" } });
     s = act(s, "b", { type: "reveal", payload: {} });
     expect(s.revealed?.result.kind).toBe("no-numeric-votes");
-    expect(() => act(s, "a", { type: "vote", payload: { value: 3 } })).toThrow(
-      "ROUND_CLOSED",
-    );
+    s = act(s, "a", { type: "vote", payload: { value: 3 } });
+    expect(s.revealed?.result).toEqual({ kind: "mode", values: [3], count: 1 });
     s.members.a!.connected = false;
     expect(() => act(s, "a", { type: "clear", payload: {} })).toThrow(
       "SESSION_EXPIRED",
@@ -118,4 +117,30 @@ describe("round contract", () => {
       count,
     });
   });
+});
+
+it("edits revealed votes, withdraws to empty, and hides without resetting the round", () => {
+  let s = room();
+  const roundId = s.roundId;
+  s = act(s, "a", { type: "vote", payload: { value: 5 } });
+  s = act(s, "b", { type: "reveal", payload: {} });
+  s = act(s, "b", { type: "vote", payload: { value: 8 } });
+  expect(s.revealed?.result).toEqual({ kind: "mode", values: [5, 8], count: 1 });
+  s = act(s, "a", { type: "vote", payload: { value: 8 } });
+  expect(s.revealed?.result).toEqual({ kind: "mode", values: [8], count: 2 });
+  s = act(s, "a", { type: "hide", payload: {} });
+  expect(s).toMatchObject({ roundId, phase: "open", revealed: null, votes: { a: 8, b: 8 }, completionEmitted: true });
+  s = act(s, "b", { type: "hide", payload: {} });
+  expect(s.votes).toEqual({ a: 8, b: 8 });
+  s = act(s, "a", { type: "reveal", payload: {} });
+  s = act(s, "a", { type: "withdraw", payload: {} });
+  s = act(s, "b", { type: "withdraw", payload: {} });
+  expect(s.revealed).toEqual({ cards: [], result: { kind: "no-numeric-votes" } });
+  s = act(s, "b", { type: "reveal", payload: {} });
+  s = act(s, "b", { type: "hide", payload: {} });
+  expect(s.completionEmitted).toBe(true);
+  expect(s.roundId).toBe(roundId);
+  const stale = commandSchema.parse({ type: "hide", payload: {}, roundId, commandId: randomUUID(), sequence: 99 });
+  s = act(s, "a", { type: "clear", payload: {} });
+  expect(() => transition(s, "a", stale, randomUUID())).toThrow("STALE_ROUND");
 });

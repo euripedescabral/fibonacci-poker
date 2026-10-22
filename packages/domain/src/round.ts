@@ -33,9 +33,22 @@ export function transition(
     case "vote":
     case "withdraw":
       if (member.mode !== "voter") throw new AppError("OBSERVER_CANNOT_VOTE");
-      if (state.phase !== "open") throw new AppError("ROUND_CLOSED");
       if (command.type === "vote") next.votes[id] = command.payload.value;
       else delete next.votes[id];
+      if (next.revealed) {
+        const cards = next.revealed.cards.filter((card) => card.id !== id);
+        if (command.type === "vote")
+          cards.push({
+            id,
+            name: member.name,
+            value: command.payload.value,
+            offline: false,
+          });
+        next.revealed = {
+          cards,
+          result: calculateMode(cards.map((card) => card.value)),
+        };
+      }
       break;
     case "setMode":
       member.mode = command.payload.mode;
@@ -46,8 +59,8 @@ export function transition(
       next.suit = command.payload.suit;
       break;
     case "reveal":
-      if (!Object.keys(next.votes).length) throw new AppError("NO_VOTES");
       if (next.phase === "open") {
+        if (!Object.keys(next.votes).length) throw new AppError("NO_VOTES");
         next.phase = "revealed";
         next.revealed = {
           cards: Object.entries(next.votes).map(([key, value]) => ({
@@ -59,6 +72,10 @@ export function transition(
           result: calculateMode(Object.values(next.votes)),
         };
       }
+      break;
+    case "hide":
+      next.phase = "open";
+      next.revealed = null;
       break;
     case "clear":
       next.roundId = nextRoundId;

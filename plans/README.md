@@ -31,3 +31,5 @@ DNS/TLS, hosting region, encrypted private R2 recovery, daily backup job and pub
 ## Frontend follow-up
 
 [P07 — Loading and motion](done/p07-loading-and-motion.md) is implemented and deployed. See the [audit and verification limits](../docs/reviews/loading-motion-audit.md).
+
+[P08 — Editable revealed votes](done/p08-editable-revealed-votes.md): implemented and verified locally; not deployed.

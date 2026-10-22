@@ -123,17 +123,17 @@ export function Table({
               }
               onClick={() =>
                 onAction({
-                  type: state.phase === "open" ? "reveal" : "clear",
+                  type: state.phase === "open" ? "reveal" : "hide",
                   payload: {},
                 })
               }
             >
-              {t(state.phase === "open" ? "reveal" : "clear")}
+              {t(state.phase === "open" ? "reveal" : "hide")}
               <span aria-hidden="true">
                 {state.phase === "open" ? "↗" : "↻"}
               </span>
             </button>
-            {state.phase === "open" && state.submitted > 0 && (
+            {(state.phase === "revealed" || state.submitted > 0) && (
               <button
                 class="text-button"
                 disabled={disabled}
@@ -151,8 +151,6 @@ export function Table({
       <Observers state={state} own={own} t={t} />
       {observer ? (
         <p class="deck-notice">{t("observerHint")}</p>
-      ) : state.phase === "revealed" ? (
-        <p class="deck-notice">{t("waitingRound")}</p>
       ) : (
         <Deck
           value={own.roundId === state.roundId ? own.value : null}

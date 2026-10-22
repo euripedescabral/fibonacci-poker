@@ -9,11 +9,11 @@ Status: agreed product scope plus explicit engineering defaults chosen for execu
 | R01 | Create a table and share a reusable link; join with a display name, no account/signup. |
 | R02 | At most 20 connected people per table, voters and observers combined. |
 | R03 | Fibonacci deck: 0, 1, 2, 3, 5, 8, 13, 21, 34 and ?. No item/task definition step. |
-| R04 | Votes hidden until reveal; changing or withdrawing a vote is allowed while open. |
-| R05 | Every connected member, including observers, can reveal or clear; no host role. |
+| R04 | Votes hidden until reveal; adding, changing or withdrawing a vote is allowed in either phase. |
+| R05 | Every connected member, including observers, can reveal, hide or clear; no host role. |
 | R06 | Reveal each submitted card alongside its author; result is MODE, including all ties. |
 | R07 | Clear starts a new round without removing members or settings. |
-| R08 | Join and vote during an open round; join after reveal and wait for the next round to vote. |
+| R08 | Join and vote during either an open or revealed round. |
 | R09 | Observers are visible separately; switching to observer withdraws a vote during an open round. |
 | R10 | Disconnected/inactive people do not block completion. |
 | R11 | One subtle sound when all active connected voters have chosen, once per round; reveal remains manual. |
@@ -32,11 +32,11 @@ Status: agreed product scope plus explicit engineering defaults chosen for execu
 - Default entrant is a voter. Observing is a simple toggle, not a separate login flow. Both modes can reveal, clear and update suit settings.
 - Only connected, non-idle voters count in the completion denominator. `?` counts as a chosen card for completion but is excluded from numerical mode.
 - Stored votes from disconnected voters still appear at reveal with an offline badge. They do not block completion. This preserves votes on transient failures. An open-round switch to observer removes that person's vote.
-- At reveal, freeze names, votes, modes of submitted voters and result. Later name/mode changes affect presence/next round, never rewrite the result. Users without cards show “No vote / Sem voto”, not zero.
+- At reveal, snapshot submitted cards and names. Explicit vote edits update that author’s card and recalculate the result; name/mode changes alone preserve revealed cards. Users without cards show “No vote / Sem voto”, not zero.
 - All distinct numeric values with equal frequency: display an explicit tie with all values and counts. No numeric votes: “No numeric votes / Sem votos numéricos”. Never round or select a winner arbitrarily.
 - Reveal can happen before all vote. Show pending count but do not add a confirmation dialog. Reveal with no submitted cards is disabled in UI and rejected by server.
 - Clear is immediate in either phase, even if no cards exist; creates a fresh round ID. Stale clears must never clear the next round. A brief disabled/pending button prevents double submit; server enforcement remains authoritative.
-- A person joining a revealed round starts as voter but has no editable card. Mode switching after reveal is allowed and changes next-round participation only.
+- A person joining a revealed round starts as voter and can vote immediately. Mode switching after reveal preserves submitted cards; observers cannot edit votes. Hide returns to the open phase with the same round, votes and completion marker; it removes public cards/results until the next reveal. Previously seen values cannot be made unknown.
 - If the final unvoted voter disconnects or becomes observer and remaining voters all voted, completion may fire. Zero voters never completes. Once fired, changes never fire it again that round.
 - One active connection per identity per table: a new tab replaces the old connection with a translated message; it must not consume two seats. A returning identity is still subject to 20 active connections; persisted seats are not permanent capacity reservations.
 - Connection restored by private browser identity, not by display name. Cookie deletion/another browser creates a new identity. No cross-device account recovery in MVP.

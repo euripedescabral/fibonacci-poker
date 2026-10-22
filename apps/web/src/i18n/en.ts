@@ -57,6 +57,7 @@ export const en = {
   choose: "What’s your estimate?",
   deckHint: "Select your card again to withdraw it.",
   observerHint: "You’re watching. You can reveal or start the next round.",
+  hide: "Hide cards",
   reveal: "Reveal cards",
   clear: "New round",
   sending: "Sending…",
@@ -71,8 +72,7 @@ export const en = {
   frequency: "{count} votes per value",
   noNumeric: "No numeric votes this round",
   revealed: "Cards revealed",
-  nextRoundHint:
-    "Talk through the differences. Start another round when you’re ready.",
+  nextRoundHint: "You can change your vote or hide the cards without starting over.",
   waitingRound: "Waiting for a new round",
   connecting: "Connecting…",
   reconnecting: "Reconnecting…",

@@ -26,21 +26,22 @@ Envelope `{commandId, sequence, roundId, type, payload}` validated by strict dis
 
 | type | Payload | Permission / behavior |
 |---|---|---|
-| `vote` | `{value: 0|1|2|3|5|8|13|21|34|'?'}` | Connected active voter, open phase. Replaces own vote. |
-| `withdraw` | `{}` | Connected active voter, open phase. No vote is a successful no-op. |
-| `setMode` | `{mode:'voter'|'observer'}` | Connected member; open observer transition removes own vote; revealed result immutable. |
-| `reveal` | `{}` | Any connected member; requires ≥1 submitted card; freeze result and values. Already revealed same round returns current result. |
+| `vote` | `{value: 0|1|2|3|5|8|13|21|34|'?'}` | Connected active voter, either phase. Replaces own vote. |
+| `withdraw` | `{}` | Connected active voter, either phase. No vote is a successful no-op. |
+| `setMode` | `{mode:'voter'|'observer'}` | Connected member; open observer transition removes own vote; revealed cards unchanged by mode switches. |
+| `reveal` | `{}` | Any connected member; requires ≥1 submitted card; publish result and values. Already revealed same round returns current result. |
+| `hide` | `{}` | Any connected member; return to open, clear public result, retain round ID, votes and completion marker. Already open is a successful no-op. |
 | `clear` | `{}` | Any connected member; create new round, retain members/settings, remove old-round votes/results. Old roundId rejects delayed duplicate with new commandId. |
 | `setSuit` | `{suit:'ember'|'claw'|'orbit'|'split-crown'}` | Any connected member; room-wide cosmetic change. |
 | `activity` | no durable command envelope; monotonic transport ping | Member activity only; rate-limited, updates idle timer; no database write for every movement. |
 
 Same commandId + same identity/table/type/payload hash returns prior result; same ID with changed payload → `COMMAND_CONFLICT`. Lookup dedup before round check for recent clear acknowledgements; persist clear receipt through one successor round, then stale roundId suffices to reject it. Bound receipts to current and immediate predecessor round and last 100 commands/member/round. A retried pruned command is rejected when stale; a current pruned command must not apply again: use monotonic per-member command sequence and high-water mark as well as IDs (see P02/P03). Envelope also carries `sequence` positive integer; client persists its next sequence per table, server communicates last accepted sequence on rejoin. Queue one outstanding mutation/client; if browser loses sequence, rejoin establishes the next value. Exact duplicate kept receipt replays; sequence ≤ high-water with no receipt → `ALREADY_PROCESSED` and authoritative resync, never execute.
 
-Concurrent distinct users' votes both succeed; don't demand a global revision for unrelated votes. Reveal racing a vote resolves by queue order. After reveal vote returns `ROUND_CLOSED`. Two clears with the same old roundId create exactly one new round. Two cold joins instantiate one runtime, and max-client reservation cannot overshoot 20. A later replacement connection invalidates the older connection generation before accepting its commands.
+Concurrent distinct users' votes both succeed; don't demand a global revision for unrelated votes. Reveal racing a vote resolves by queue order. Votes after reveal update the author’s card and recalculate mode. Hide racing a vote resolves by queue order; final open projections never include values. Two clears with the same old roundId create exactly one new round. Two cold joins instantiate one runtime, and max-client reservation cannot overshoot 20. A later replacement connection invalidates the older connection generation before accepting its commands.
 
 ## State visibility
 
-Public open projection: table/round/revision, suit, connected roster names/IDs/modes/status, hasVoted flags and completion counts. **No hidden value in public Schema, metadata, logs, error payloads or hidden DOM.** Own selected value sent via authenticated private response/channel only. Public revealed projection contains immutable cards with author snapshot and numerical mode. Values for disconnected voters stay in the reveal result; completion denominator only uses active connected voters.
+Public open projection: table/round/revision, suit, connected roster names/IDs/modes/status, hasVoted flags and completion counts. **No hidden value in public Schema, metadata, logs, error payloads or hidden DOM.** Own selected value sent via authenticated private response/channel only. Public revealed projection contains editable cards with author snapshots and current numerical mode. Values for disconnected voters stay in the reveal result; completion denominator only uses active connected voters.
 
 Result is `{kind:'mode', values:number[], count:number}` (ascending ties) or `{kind:'no-numeric-votes'}`; all submitted `?` is a valid revealed round without numeric result. Completion event `{roundId,eventId}` is persisted as emitted with the winning transition before publication. Client arms sound from a gesture, deduplicates by eventId and never synthesizes sound from a restored snapshot. Delivery is best-effort: a crash may suppress a sound, but cannot replay the round's event. There is no claim of exactly-once audible playback across devices/crashes.
 

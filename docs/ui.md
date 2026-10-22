@@ -12,11 +12,12 @@ Portuguese dictionary `pt` and English `en`; identical keys checked by a script.
 |---|---|---|---|---|---|---|
 | Create | Name → Create table | Criando… / Creating… | Navigate + share link | Retain name, retry | Any session | Dark AA; Enter submits |
 | Join | Link + name → Join | Entrando… / Joining… | Seat or observer strip | Full/unknown/expired named explicitly; retry/back home | Any session | Focus first input; Enter |
-| Vote/change | Deck card | Enviando… / Sending… | Own selection + face-down public card | Roll back pending selection; keep last confirmed vote | Voter/open | Buttons with aria-pressed; Enter/Space |
-| Withdraw | Selected card again | Recolhendo… / Withdrawing… | Empty seat card | Restore confirmed selection | Voter/open | Same card remains focused |
+| Vote/change | Deck card | Enviando… / Sending… | Own selection + face-down public card | Roll back pending selection; keep last confirmed vote | Voter/either phase | Buttons with aria-pressed; Enter/Space |
+| Withdraw | Selected card again | Recolhendo… / Withdrawing… | Empty seat card | Restore confirmed selection | Voter/either phase | Same card remains focused |
 | Observe | Toggle on | Alterando… / Switching… | Observer strip; open vote withdrawn | Preserve old mode/card | Member | Labeled switch |
-| Become voter | Toggle off | Alterando… / Switching… | Seat + deck; wait if revealed | Preserve mode | Observer | Focus moves only if control disappears |
+| Become voter | Toggle off | Alterando… / Switching… | Seat + editable deck in either phase | Preserve mode | Observer | Focus moves only if control disappears |
 | Reveal | Reveal with pending count | Revelando… / Revealing… | All submitted cards + mode/ties | No votes, stale round or write failure shown | All members | Button; result aria-live polite |
+| Hide | Ocultar cartas / Hide cards | Enviando… / Sending… | Same round and selections; public cards/result hidden | Keep confirmed state on failure | All members | Button; Enter/Space; focus retained |
 | Clear | New round / clear | Limpando… / Clearing… | Fresh round; roster/settings unchanged | No false clearing on write error | All members | Focus stays on round action |
 | Copy invite | Copy link | Copiando… / Copying… | Copiado / Copied | Show selectable link on clipboard failure | Member | Button and live announcement |
 | Suit | Settings selection | Salvando… / Saving… | Shared card family updated | Revert to confirmed suit | Member | Labeled radio group |
@@ -26,7 +27,7 @@ Portuguese dictionary `pt` and English `en`; identical keys checked by a script.
 | Connection lost | Network closes | Reconectando… / Reconnecting… | Full snapshot + own vote | Disable mutations; capped retries then explicit Retry | Member | Status region; do not trap focus |
 | Idle | 15 min no activity | Pausado por inatividade / Paused for inactivity | Next real input reconnects | No automatic heartbeat reconnect loop | Member | Visible Resume button, keyboard activity |
 | Replacement | Second tab joins | Conexão aberta em outra aba / Connected in another tab | Old tab inert | Explicit Reconnect can take over | Member | Status + action |
-| Late join | Revealed room | Aguardando nova rodada / Waiting for next round | See current result; can clear | No hidden new vote | Member | Deck disabled with reason |
+| Late join | Revealed room | Enviando… / Sending… when voting | Editable deck; submitted votes update public result | Keep confirmed selection on failure | Voter | Keyboard card buttons |
 | Client outdated | Protocol mismatch or missing deployed chunk | Atualização disponível / Update available | Reload current app | No infinite retry; explicit Reload | Member | Accessible button |
 | Empty/observers only | No active voters | Aguardando votantes / Waiting for voters | No completion sound | Enable voting toggle, no dead end | Member | Informative text |
 

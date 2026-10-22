@@ -21,6 +21,7 @@ export const commandSchema = z.discriminatedUnion("type", [
   }),
   z.strictObject({ ...envelope, type: z.literal("withdraw"), payload: empty }),
   z.strictObject({ ...envelope, type: z.literal("reveal"), payload: empty }),
+  z.strictObject({ ...envelope, type: z.literal("hide"), payload: empty }),
   z.strictObject({ ...envelope, type: z.literal("clear"), payload: empty }),
   z.strictObject({
     ...envelope,
@@ -38,4 +39,4 @@ export type Action =
   | { type: "vote"; payload: { value: Vote } }
   | { type: "setMode"; payload: { mode: "voter" | "observer" } }
   | { type: "setSuit"; payload: { suit: (typeof SUITS)[number] } }
-  | { type: "withdraw" | "reveal" | "clear"; payload: Record<string, never> };
+  | { type: "withdraw" | "reveal" | "hide" | "clear"; payload: Record<string, never> };

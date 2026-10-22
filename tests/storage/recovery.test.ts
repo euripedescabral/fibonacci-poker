@@ -27,12 +27,22 @@ it("recovers committed vote with offline presence after reopen", () => {
       sequence: 1,
       commandId: randomUUID(),
     });
-    executeCommand(store, s, "a", c);
+    let current = executeCommand(store, s, "a", c).state;
+    for (const action of [
+      { type: "reveal", payload: {} },
+      { type: "vote", payload: { value: 21 } },
+      { type: "hide", payload: {} },
+    ]) {
+      current = executeCommand(store, current, "a", commandSchema.parse({ ...action, roundId: s.roundId, sequence: current.members.a!.lastSequence + 1, commandId: randomUUID() })).state;
+    }
     db.close();
     db = openDatabase(join(dir, "db.sqlite"));
     store = new TableStore(db);
     const restored = store.load(s.tableId);
-    expect(restored.votes.a).toBe(13);
+    expect(restored.votes.a).toBe(21);
+    expect(restored.phase).toBe("open");
+    expect(restored.revealed).toBeNull();
+    expect(restored.completionEmitted).toBe(true);
     expect(restored.members.a?.connected).toBe(false);
     expect(restored.roundId).toBe(s.roundId);
     expect(executeCommand(store, restored, "a", c).replayed).toBe(true);

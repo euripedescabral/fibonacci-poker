@@ -9,7 +9,7 @@ This matrix was authored before implementation. P01–P05 now have runtime evide
 | T03 | R04 | Two real SDK clients: observer/other voter never receives hidden values in frames; own value privately restored | P04 |
 | T04 | R05 R07 | Voter and observer reveal/clear; double concurrent clear creates one round; delayed prior-round action rejected | P04 |
 | T05 | R06 | Mode of [3,5,5,8]=5; [3,3,5,5] ties; all distinct ties; zero valid; only ? no numeric result | P02 |
-| T06 | R08 R09 | Late join open/revealed; observer toggle withdraws only while open; revealed snapshot immutable | P02 P04 |
+| T06 | R08 R09 | Late join and edit in either phase; observer toggle withdraws only while open; hide retains votes/round and restores private projection | P02 P04 |
 | T07 | R10 R11 | Disconnect/idle unvoted member may complete remaining voters; no completion with zero voters; marker once/round | P02 P04 |
 | T08 | R11 | Audio after gesture only, mute, event dedup, no sound on snapshot restore; autoplay refusal harmless | P05 |
 | T09 | R12 R18 | Original SVG suits; shared setting updates all clients; values unchanged | P05 |

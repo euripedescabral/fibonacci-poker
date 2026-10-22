@@ -153,3 +153,22 @@ it("settings localize motion without nausea wording", () => {
   expect(document.body.textContent).toContain("Reduzir movimento");
   expect(document.body.textContent).not.toMatch(/enjoo|náusea/i);
 });
+
+it.each(["en", "pt"] as const)("allows revealed voting and separate hide/clear controls in %s", (locale) => {
+  const view = fixture();
+  view.own!.value = 8;
+  view.state!.phase = "revealed";
+  view.state!.revealed = { cards: [{ id: "me", name: "Me", value: 8, offline: false }], result: { kind: "mode", values: [8], count: 1 } };
+  const action = vi.fn(), t = translator(locale);
+  const rendered = render(<Table view={view} onAction={action} t={t} />);
+  fireEvent.click(screen.getByRole("button", { name: t("cardLabel", { value: 5 }), exact: true }));
+  expect(action).toHaveBeenLastCalledWith({ type: "vote", payload: { value: 5 } });
+  fireEvent.click(screen.getByRole("button", { name: t("cardLabel", { value: 8 }), exact: true }));
+  expect(action).toHaveBeenLastCalledWith({ type: "withdraw", payload: {} });
+  fireEvent.click(screen.getByRole("button", { name: new RegExp(t("hide")) }));
+  expect(action).toHaveBeenLastCalledWith({ type: "hide", payload: {} });
+  fireEvent.click(screen.getByRole("button", { name: t("clear"), exact: true }));
+  expect(action).toHaveBeenLastCalledWith({ type: "clear", payload: {} });
+  rendered.rerender(<Table view={{ ...view, pending: true }} onAction={action} t={t} />);
+  expect((screen.getByRole("button", { name: new RegExp(t("hide")) }) as HTMLButtonElement).disabled).toBe(true);
+});

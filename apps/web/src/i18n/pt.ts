@@ -58,6 +58,7 @@ export const pt = {
   deckHint: "Toque novamente na sua carta para recolher.",
   observerHint:
     "Você está observando. Pode revelar ou iniciar a próxima rodada.",
+  hide: "Ocultar cartas",
   reveal: "Revelar cartas",
   clear: "Nova rodada",
   sending: "Enviando…",
@@ -72,8 +73,7 @@ export const pt = {
   frequency: "{count} votos por valor",
   noNumeric: "Sem votos numéricos nesta rodada",
   revealed: "Cartas reveladas",
-  nextRoundHint:
-    "Conversem sobre as diferenças. Quando quiserem, comecem outra rodada.",
+  nextRoundHint: "Você pode mudar seu voto ou ocultar as cartas sem recomeçar.",
   waitingRound: "Aguardando uma nova rodada",
   connecting: "Conectando…",
   reconnecting: "Reconectando…",
