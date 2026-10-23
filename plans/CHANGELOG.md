@@ -39,3 +39,7 @@ P07 deployed from 7363628; health, published assets and all 25 production protoc
 ## 2026-10-22 — P08 editable revealed votes
 
 Implemented adding/changing/withdrawing revealed votes and explicit hide retaining the round and selections. Updated product/protocol/UI contracts. All 92 tests, locale parity, build, bundle and local Playwright MCP smoke passed. No push or deploy per owner instruction.
+
+## 2026-10-23 — P08 public release
+
+Owner authorized deployment. Source `273e9c6` published as `fibotable:273e9c6-release` after green CI and verified encrypted off-host backup. Public readiness, browser persistence/edit/hide smoke and independent two-client HTTPS/WSS smoke passed. Sibling containers unchanged; prior image retained. See completed P08 for immutable artifact and verification evidence.
