@@ -34,4 +34,4 @@ DNS/TLS, hosting region, encrypted private R2 recovery, daily backup job and pub
 
 [P08 — Editable revealed votes](done/p08-editable-revealed-votes.md): deployed and verified at https://fibotable.com on 2026-10-23.
 
-[P09 — Node security release](active/p09-node-security-release.md): patch and production validation in progress.
+[P09 — Node security release](done/p09-node-security-release.md): deployed and production verified on 2026-10-26.

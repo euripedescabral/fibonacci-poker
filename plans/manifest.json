@@ -418,7 +418,7 @@
     },
     {
       "id": "P09",
-      "path": "plans/active/p09-node-security-release.md",
+      "path": "plans/done/p09-node-security-release.md",
       "depends": [
         "P08"
       ],

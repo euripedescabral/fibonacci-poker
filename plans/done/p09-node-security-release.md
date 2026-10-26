@@ -1,7 +1,7 @@
 ---
 id: P09
 name: Patch Node runtime and dependency security
-status: in-progress
+status: complete
 dependencies: [P08]
 activation: Owner requested security updates and production deployment
 priority: P0
@@ -63,3 +63,5 @@ Require the supported Node24 security floor before running verification. Keep bu
 ## Layer 5 — Meta
 
 No parallel edits within this repository. Other applications are audited in their own repositories/worktrees. Shared-host deployments are serialized. The host OS and third-party management services are separate operational surfaces; their actual results must be reported without claiming this application patch fixes them.
+
+Validation complete: clean install, 92 tests, typecheck/lint, locale106, bundle/build and audit0; exact source CI passed; container/runtime and Playwright production continuity verified. See [release evidence](../../docs/reviews/node-security-release.md).

@@ -43,3 +43,7 @@ Implemented adding/changing/withdrawing revealed votes and explicit hide retaini
 ## 2026-10-23 — P08 public release
 
 Owner authorized deployment. Source `273e9c6` published as `fibotable:273e9c6-release` after green CI and verified encrypted off-host backup. Public readiness, browser persistence/edit/hide smoke and independent two-client HTTPS/WSS smoke passed. Sibling containers unchanged; prior image retained. See completed P08 for immutable artifact and verification evidence.
+
+## 2026-10-26 — P09 complete
+
+Node24.22.1 and body-parser2.4.0 security release deployed from85e4255; clean install,92tests,build/audit0,CI and persistent production browser smoke passed. See release evidence.
