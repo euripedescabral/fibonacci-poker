@@ -1,6 +1,6 @@
 # Verified toolchain
 
-Node 24.18.0. npm lockfile pins all transitive versions.
+Node 24.22.1, including the October 21, 2026 security fixes. npm lockfile pins all transitive versions. Verification rejects older runtimes and inconsistent Docker/local pins.
 
 | Package | Version |
 |---|---|

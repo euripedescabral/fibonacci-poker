@@ -4,7 +4,7 @@ One application process, one dedicated SQLite volume, one external Traefik netwo
 
 ## Container
 
-Build with Node 24.18.0 on Linux amd64. The final image runs as UID/GID 1000, drops all capabilities, has no new privileges and a read-only root filesystem. Only `/data` and a 16 MiB temporary filesystem are writable. Compose exposes no host port and joins the existing external `dokploy-network`. Application origin must be the exact HTTPS URL; Secure cookies remain enabled. No proxy forwarding header is trusted: limits use the socket IP, shared behind the existing proxy. For this small team, 60 sessions/joins per minute is intentional; larger audiences require an explicit trusted-proxy design.
+Build with Node 24.22.1 on Linux amd64. The final image runs as UID/GID 1000, drops all capabilities, has no new privileges and a read-only root filesystem. Only `/data` and a 16 MiB temporary filesystem are writable. Compose exposes no host port and joins the existing external `dokploy-network`. Application origin must be the exact HTTPS URL; Secure cookies remain enabled. No proxy forwarding header is trusted: limits use the socket IP, shared behind the existing proxy. For this small team, 60 sessions/joins per minute is intentional; larger audiences require an explicit trusted-proxy design.
 
 ```sh
 docker compose config --quiet

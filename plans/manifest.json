@@ -415,6 +415,36 @@
           "gate": "npm run verify && npm run check:i18n && npm run build && npm run check:bundle"
         }
       ]
+    },
+    {
+      "id": "P09",
+      "path": "plans/active/p09-node-security-release.md",
+      "depends": [
+        "P08"
+      ],
+      "phases": [
+        {
+          "id": "P09-A",
+          "files": [
+            ".node-version",
+            "Dockerfile",
+            "package.json",
+            "package-lock.json",
+            "scripts/check-node-runtime.mjs",
+            "README.md",
+            "docs/toolchain.md",
+            "docs/operations.md"
+          ],
+          "gate": "npm ci && npm run verify && npm run check:i18n && npm run build && npm run check:bundle && npm audit"
+        },
+        {
+          "id": "P09-B",
+          "files": [
+            "docs/reviews/node-security-release.md"
+          ],
+          "gate": "npm run test:realtime && npm run test:ops"
+        }
+      ]
     }
   ],
   "requirements": [

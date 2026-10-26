@@ -6,7 +6,7 @@ Planning poker with persistent shared tables, Fibonacci cards and original ficti
 
 ## Run locally
 
-Use Node **24.18.0** (see `.node-version`).
+Use Node **24.22.1** (see `.node-version`).
 
 ```sh
 npm ci

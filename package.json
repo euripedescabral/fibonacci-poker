@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "engines": {
-    "node": ">=24.18.0 <25"
+    "node": ">=24.22.1 <25"
   },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.base.json",
@@ -18,7 +18,7 @@
     "test:storage": "vitest run tests/storage",
     "test:realtime": "vitest run tests/realtime",
     "test:web": "vitest run tests/web",
-    "verify": "node scripts/check-patterns.mjs && npm run typecheck && npm run lint && npm test && python3 scripts/check-plans.py",
+    "verify": "node scripts/check-node-runtime.mjs && node scripts/check-patterns.mjs && npm run typecheck && npm run lint && npm test && python3 scripts/check-plans.py",
     "check:i18n": "node --import tsx scripts/check-i18n.mjs",
     "check:bundle": "node scripts/check-bundle.mjs",
     "build": "vite build apps/web --config apps/web/vite.config.ts && esbuild apps/server/src/main.ts --bundle --platform=node --packages=external --format=esm --outfile=dist/server/main.js",
